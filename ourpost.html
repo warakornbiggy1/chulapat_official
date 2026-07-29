@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Relaxed CSP: this page only, to allow official Instagram post embeds -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://*.cdninstagram.com https://*.fbcdn.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' https://www.instagram.com https://platform.instagram.com; frame-src https://www.instagram.com; connect-src 'self' https://www.instagram.com https://graph.instagram.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Our Post — the latest drops and announcements from CHULAPAT_OFFICIAL." />
+  <title>Our Post · CHULAPAT_OFFICIAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header data-nav></header>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <span class="eyebrow">📣 Our Post</span>
+        <h1>Latest <em>Drops</em></h1>
+        <p>Announcements, teasers and reveals from the CHULAPAT big top — follow along on Instagram.</p>
+      </div>
+    </section>
+
+    <!-- Featured post -->
+    <section class="section section--tight">
+      <div class="container post-hero">
+        <div class="post-hero__img reveal">
+          <img src="assets/post-coming-soon.jpg" alt="CHULAPAT coming soon poster — dark circus theme" width="1000" height="1250" loading="lazy" />
+        </div>
+        <div class="reveal">
+          <span class="badge-soon">Coming Soon</span>
+          <h2 class="section__title" style="margin-top:16px">The Show Is <em>Coming</em></h2>
+          <p class="section__lead">The stage is set and the lights are warming up. Our newest season reveal is almost here — stay tuned for the full lineup, the theme, and the first look at this year's kit.</p>
+          <p class="hero__slogan thai" style="font-size:1.15rem">กิติศัพท์เกียงไกรยิ่งใหญ่เลื่องลือ<br />มัจจุราชขานชื่อ <b>เราคือแสดดำ</b></p>
+          <div class="hero__cta" style="margin-top:22px">
+            <a class="btn btn--primary" href="https://www.instagram.com/chulapat_official?igsh=MTFkbWNmbHZudmo4aQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Follow on Instagram →</a>
+            <a class="btn btn--ghost" href="contact.html">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Instagram feed (official embeds) -->
+    <section class="section section--tight">
+      <div class="container center">
+        <span class="eyebrow">Live Feed</span>
+        <h2 class="section__title">Straight From <em>Instagram</em></h2>
+        <p class="section__lead">Real posts pulled live from @chulapat_official.</p>
+      </div>
+
+      <!-- Embeds render here -->
+      <div class="container ig-feed" id="ig-feed"></div>
+
+      <!-- Shown only when no post links have been added yet -->
+      <div class="container ig-empty" id="ig-empty">
+        <div class="post-grid" style="margin-top:8px">
+          <div class="post-tile"><div><div class="display">Season Reveal</div><span>Announcement</span></div></div>
+          <div class="post-tile"><div><div class="display">Jersey Drop</div><span>New Kit</span></div></div>
+          <div class="post-tile"><div><div class="display">Cheer Teaser</div><span>Behind the Scenes</span></div></div>
+        </div>
+        <p style="color:var(--text-dim);margin-top:22px">
+          Live posts will appear here once post links are added in <code>js/ig-posts.js</code>.
+          Meanwhile, catch everything on
+          <a href="https://www.instagram.com/chulapat_official?igsh=MTFkbWNmbHZudmo4aQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" style="color:var(--gold)">Instagram →</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-band reveal">
+          <h2>Don't Miss the Next Reveal</h2>
+          <p style="max-width:540px;margin:10px auto 24px">Follow @chulapat_official for teasers, drops, and match-day highlights.</p>
+          <a class="btn btn--ghost" href="https://www.instagram.com/chulapat_official?igsh=MTFkbWNmbHZudmo4aQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" style="border-color:#fff;color:#fff;background:rgba(0,0,0,0.15)">@chulapat_official →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+  <script src="js/main.js" defer></script>
+  <script src="js/ig-posts.js" defer></script>
+  <script async src="https://www.instagram.com/embed.js"></script>
+</body>
+</html>

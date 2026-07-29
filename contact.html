@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="Contact CHULAPAT_OFFICIAL — questions, joining the squad, or reserving a jersey. Follow us on Instagram." />
+  <title>Contact · CHULAPAT_OFFICIAL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header data-nav></header>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <span class="eyebrow">📮 Say Hello</span>
+        <h1>Contact <em>Us</em></h1>
+        <p>Questions, joining the squad, or reserving a jersey? Drop a message and we'll get right back to you.</p>
+      </div>
+    </section>
+
+    <section class="section section--tight">
+      <div class="container contact-grid">
+        <!-- Form -->
+        <div class="card reveal">
+          <div class="card__body">
+            <h2 class="card__title" style="font-size:1.5rem;margin-bottom:18px">Send a Message</h2>
+            <form data-contact-form novalidate>
+              <div class="field">
+                <label for="name">Your Name *</label>
+                <input id="name" name="name" type="text" autocomplete="name" maxlength="80" required />
+                <span class="field__error" data-error="name" role="alert"></span>
+              </div>
+              <div class="field">
+                <label for="email">Email *</label>
+                <input id="email" name="email" type="email" autocomplete="email" maxlength="120" required />
+                <span class="field__error" data-error="email" role="alert"></span>
+              </div>
+              <div class="field">
+                <label for="topic">Topic</label>
+                <select id="topic" name="topic">
+                  <option value="general">General enquiry</option>
+                  <option value="join">Join the squad</option>
+                  <option value="jersey">Reserve a jersey</option>
+                  <option value="sponsor">Sponsorship</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" maxlength="1000" required placeholder="Tell us a bit..."></textarea>
+                <span class="field__error" data-error="message" role="alert"></span>
+              </div>
+              <button class="btn btn--primary" type="submit" style="width:100%;justify-content:center">Send Message 🎪</button>
+              <p class="form-note" tabindex="-1" role="status"></p>
+            </form>
+          </div>
+        </div>
+
+        <!-- Info -->
+        <div class="reveal">
+          <h2 class="card__title" style="font-size:1.5rem;margin-bottom:18px">Reach Us</h2>
+          <ul class="info-list">
+            <li><span class="ic" aria-hidden="true">📸</span><div><b>Instagram</b><span>@chulapat_official</span></div></li>
+            <li><span class="ic" aria-hidden="true">✉️</span><div><b>Email</b><span>hello@chulapat.example</span></div></li>
+            <li><span class="ic" aria-hidden="true">📍</span><div><b>Location</b><span>Activity Hall, Sports Building, Floor 1</span></div></li>
+            <li><span class="ic" aria-hidden="true">🕒</span><div><b>Hours</b><span>Mon–Fri, 16:00–19:00</span></div></li>
+          </ul>
+
+          <h3 class="card__title" style="margin:26px 0 6px">Follow Us</h3>
+          <div class="socials">
+            <a href="https://www.instagram.com/chulapat_official?igsh=MTFkbWNmbHZudmo4aQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">📸 Instagram</a>
+          </div>
+
+          <div class="qr-card reveal">
+            <img src="assets/ig-qr.jpg" alt="Instagram QR code for @chulapat_official" width="120" height="120" loading="lazy" />
+            <div>
+              <b>Scan to follow</b>
+              <p>@chulapat_official on Instagram — teasers, drops &amp; match-day highlights.</p>
+            </div>
+          </div>
+
+          <div class="card feature reveal" style="margin-top:22px">
+            <div class="feature__icon" aria-hidden="true">🔒</div>
+            <h3 class="card__title">Your Privacy</h3>
+            <p class="card__text">This form is a client-side demo — no data leaves your browser until it's connected to a secure form service. We only ever collect what's necessary.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div data-footer></div>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
