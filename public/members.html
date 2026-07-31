@@ -10,7 +10,7 @@
   <title>Members · CHULAPAT_OFFICIAL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@600;700;800;900&family=Bodoni+Moda:ital,wght@1,500;1,600&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -19,8 +19,9 @@
 
   <main id="main">
     <section class="page-head">
+      <span class="ghost" aria-hidden="true">CAST</span>
       <div class="container">
-        <span class="eyebrow">🎭 The Cast</span>
+        <p class="eyebrow">The Cast</p>
         <h1>Our <em>Members</em></h1>
         <p>Behind every show are real people — training hard, cheering louder, and standing together.</p>
       </div>
@@ -28,80 +29,81 @@
 
     <section class="section section--tight">
       <div class="container">
-        <div class="filters" data-filter-group data-target="#members-grid">
-          <button class="chip is-active" data-cat="all">All</button>
-          <button class="chip" data-cat="board">Board</button>
-          <button class="chip" data-cat="athlete">Athletes</button>
-          <button class="chip" data-cat="cheer">Cheerleaders</button>
-          <button class="chip" data-cat="stand">Fans</button>
+        <div class="filters" data-filter-group data-target="#members-grid" role="group" aria-label="Filter members by department">
+          <button class="chip is-active" type="button" data-cat="all">All</button>
+          <button class="chip" type="button" data-cat="board">Board</button>
+          <button class="chip" type="button" data-cat="athlete">Athletes</button>
+          <button class="chip" type="button" data-cat="cheer">Cheerleaders</button>
+          <button class="chip" type="button" data-cat="stand">Fans</button>
         </div>
 
-        <div class="grid grid--4" id="members-grid">
+        <div class="roster" id="members-grid">
           <article class="card member reveal" data-cat="board">
-            <div class="member__avatar" aria-hidden="true">P</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">P</span></div>
             <div class="member__body"><h3 class="card__title">Poon C.</h3><span class="member__role">President</span></div>
           </article>
           <article class="card member reveal" data-cat="board">
-            <div class="member__avatar" aria-hidden="true">N</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">N</span></div>
             <div class="member__body"><h3 class="card__title">Nicha S.</h3><span class="member__role">Vice President</span></div>
           </article>
           <article class="card member reveal" data-cat="board">
-            <div class="member__avatar" aria-hidden="true">K</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">K</span></div>
             <div class="member__body"><h3 class="card__title">Kan P.</h3><span class="member__role">Treasurer</span></div>
           </article>
           <article class="card member reveal" data-cat="board">
-            <div class="member__avatar" aria-hidden="true">M</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">M</span></div>
             <div class="member__body"><h3 class="card__title">Manas J.</h3><span class="member__role">Events Lead</span></div>
           </article>
 
           <article class="card member reveal" data-cat="athlete">
-            <div class="member__avatar" aria-hidden="true">7</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">7</span></div>
             <div class="member__body"><h3 class="card__title">Teer <span class="member__num">#7</span></h3><span class="member__role">Football · Captain</span></div>
           </article>
           <article class="card member reveal" data-cat="athlete">
-            <div class="member__avatar" aria-hidden="true">10</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">10</span></div>
             <div class="member__body"><h3 class="card__title">Arthit <span class="member__num">#10</span></h3><span class="member__role">Basketball</span></div>
           </article>
           <article class="card member reveal" data-cat="athlete">
-            <div class="member__avatar" aria-hidden="true">3</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">3</span></div>
             <div class="member__body"><h3 class="card__title">Pim <span class="member__num">#3</span></h3><span class="member__role">Volleyball</span></div>
           </article>
           <article class="card member reveal" data-cat="athlete">
-            <div class="member__avatar" aria-hidden="true">1</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">1</span></div>
             <div class="member__body"><h3 class="card__title">Rawee <span class="member__num">#1</span></h3><span class="member__role">Track · Relay</span></div>
           </article>
 
           <article class="card member reveal" data-cat="cheer">
-            <div class="member__avatar" aria-hidden="true">F</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">F</span></div>
             <div class="member__body"><h3 class="card__title">Fai P.</h3><span class="member__role">Head Cheerleader</span></div>
           </article>
           <article class="card member reveal" data-cat="cheer">
-            <div class="member__avatar" aria-hidden="true">P</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">P</span></div>
             <div class="member__body"><h3 class="card__title">Prae W.</h3><span class="member__role">Cheerleader</span></div>
           </article>
           <article class="card member reveal" data-cat="cheer">
-            <div class="member__avatar" aria-hidden="true">T</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">T</span></div>
             <div class="member__body"><h3 class="card__title">Tawan C.</h3><span class="member__role">Cheerleader</span></div>
           </article>
 
           <article class="card member reveal" data-cat="stand">
-            <div class="member__avatar" aria-hidden="true">★</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">★</span></div>
             <div class="member__body"><h3 class="card__title">Front Stand</h3><span class="member__role">Fans · Card Stunt</span></div>
           </article>
           <article class="card member reveal" data-cat="stand">
-            <div class="member__avatar" aria-hidden="true">♪</div>
+            <div class="member__plate"><span class="member__mono" aria-hidden="true">♪</span></div>
             <div class="member__body"><h3 class="card__title">Drumline</h3><span class="member__role">Fans · Marching Band</span></div>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section--tight">
       <div class="container">
-        <div class="cta-band reveal">
-          <h2>Want to Join the Squad?</h2>
-          <p style="max-width:520px;margin:10px auto 24px">We welcome athletes, cheerleaders, and fans all year round.</p>
-          <a class="btn btn--ghost" href="contact.html" style="border-color:#fff;color:#fff;background:rgba(0,0,0,0.15)">Apply Now →</a>
+        <div class="marquee-sign reveal">
+          <span class="marquee-sign__frame" aria-hidden="true"></span>
+          <h2>Want to Join the <em>Squad</em>?</h2>
+          <p>We welcome athletes, cheerleaders, and fans all year round.</p>
+          <a class="btn btn--light" href="contact.html"><span class="btn__label">Apply Now</span></a>
         </div>
       </div>
     </section>

@@ -10,7 +10,7 @@
   <title>Jersey · CHULAPAT_OFFICIAL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@600;700;800;900&family=Bodoni+Moda:ital,wght@1,500;1,600&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -19,8 +19,9 @@
 
   <main id="main">
     <section class="page-head">
+      <span class="ghost" aria-hidden="true">KIT</span>
       <div class="container">
-        <span class="eyebrow">👕 This Season's Kit</span>
+        <p class="eyebrow">This Season's Kit</p>
         <h1>The <em>Jersey</em> Collection</h1>
         <p>Dark circus design in orange &amp; black — breathable, comfortable, built for the field and the stands.</p>
       </div>
@@ -28,109 +29,176 @@
 
     <section class="section section--tight">
       <div class="container">
-        <div class="filters" data-filter-group data-target="#jersey-grid">
-          <button class="chip is-active" data-cat="all">All</button>
-          <button class="chip" data-cat="home">Home</button>
-          <button class="chip" data-cat="away">Away</button>
-          <button class="chip" data-cat="cheer">Fans</button>
+        <div class="filters" data-filter-group data-target="#jersey-grid" role="group" aria-label="Filter kits by type">
+          <button class="chip is-active" type="button" data-cat="all">All</button>
+          <button class="chip" type="button" data-cat="home">Home</button>
+          <button class="chip" type="button" data-cat="away">Away</button>
+          <button class="chip" type="button" data-cat="cheer">Fans</button>
         </div>
 
-        <div class="grid grid--3" id="jersey-grid">
-          <article class="card reveal" data-cat="home">
-            <div class="jersey">
+        <div class="kit-grid" id="jersey-grid">
+          <article class="card kit kit--hero reveal" data-cat="home">
+            <div class="kit__stage">
+              <span class="kit__ghost" aria-hidden="true">09</span>
               <div class="jersey__shirt" data-num="09" aria-hidden="true"><span class="jersey__stripes"></span></div>
-              <h3 class="jersey__name">CIRCUS HOME</h3>
-              <p class="card__text">Bold orange home kit with classic pinstripes.</p>
+              <div class="jersey__meta">
+                <h3 class="jersey__name">Circus Home</h3>
+                <p class="card__text">Bold orange home kit with classic pinstripes.</p>
+              </div>
             </div>
-            <div class="card__body">
-              <div class="sizes" aria-label="Available sizes"><span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span><span>2XL</span></div>
-              <p class="jersey__price">฿ 450</p>
-              <a class="btn btn--primary" href="contact.html" style="width:100%;justify-content:center">Reserve</a>
-            </div>
-          </article>
-
-          <article class="card reveal" data-cat="away">
-            <div class="jersey">
-              <div class="jersey__shirt" data-num="07" aria-hidden="true" style="background:linear-gradient(160deg,#241814,#070506)"><span class="jersey__stripes"></span></div>
-              <h3 class="jersey__name">MIDNIGHT AWAY</h3>
-              <p class="card__text">Deep black away kit with ember-orange trim.</p>
-            </div>
-            <div class="card__body">
-              <div class="sizes" aria-label="Available sizes"><span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span><span>2XL</span></div>
-              <p class="jersey__price">฿ 450</p>
-              <a class="btn btn--primary" href="contact.html" style="width:100%;justify-content:center">Reserve</a>
+            <div class="kit__foot">
+              <div>
+                <span class="sizes__label">Sizes</span>
+                <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+              </div>
+              <p class="jersey__price"><small>Price</small>฿ 450</p>
+              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
             </div>
           </article>
 
-          <article class="card reveal" data-cat="cheer">
-            <div class="jersey">
-              <div class="jersey__shirt" data-num="★" aria-hidden="true" style="background:linear-gradient(160deg,#FFB84D,#FF6A1A)"><span class="jersey__stripes"></span></div>
-              <h3 class="jersey__name">RINGMASTER TEE</h3>
-              <p class="card__text">Golden-orange fan tee — glows across the whole stand.</p>
+          <article class="card kit reveal" data-cat="away">
+            <div class="kit__stage">
+              <span class="kit__ghost" aria-hidden="true">07</span>
+              <div class="jersey__shirt" data-num="07" aria-hidden="true" style="background:linear-gradient(158deg,#2C1D18,#0A0607)"><span class="jersey__stripes"></span></div>
+              <div class="jersey__meta">
+                <h3 class="jersey__name">Midnight Away</h3>
+                <p class="card__text">Deep black away kit with ember-orange trim.</p>
+              </div>
             </div>
-            <div class="card__body">
-              <div class="sizes" aria-label="Available sizes"><span>S</span><span>M</span><span>L</span><span>XL</span><span>2XL</span><span>3XL</span></div>
-              <p class="jersey__price">฿ 320</p>
-              <a class="btn btn--primary" href="contact.html" style="width:100%;justify-content:center">Reserve</a>
+            <div class="kit__foot">
+              <div>
+                <span class="sizes__label">Sizes</span>
+                <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+              </div>
+              <p class="jersey__price"><small>Price</small>฿ 450</p>
+              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
             </div>
           </article>
 
-          <article class="card reveal" data-cat="home">
-            <div class="jersey">
+          <article class="card kit reveal" data-cat="cheer">
+            <div class="kit__stage">
+              <span class="kit__ghost" aria-hidden="true">★</span>
+              <div class="jersey__shirt" data-num="★" aria-hidden="true" style="background:linear-gradient(158deg,#FFE3AE,#E8B96A 45%,#FF6A1A)"><span class="jersey__stripes"></span></div>
+              <div class="jersey__meta">
+                <h3 class="jersey__name">Ringmaster Tee</h3>
+                <p class="card__text">Golden-orange fan tee — glows across the whole stand.</p>
+              </div>
+            </div>
+            <div class="kit__foot">
+              <div>
+                <span class="sizes__label">Sizes</span>
+                <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li><li>3XL</li></ul>
+              </div>
+              <p class="jersey__price"><small>Price</small>฿ 320</p>
+              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
+            </div>
+          </article>
+
+          <article class="card kit reveal" data-cat="home">
+            <div class="kit__stage">
+              <span class="kit__ghost" aria-hidden="true">10</span>
               <div class="jersey__shirt" data-num="10" aria-hidden="true"><span class="jersey__stripes"></span></div>
-              <h3 class="jersey__name">CAPTAIN EDITION</h3>
-              <p class="card__text">Special captain's cut with the circus crest on the sleeve.</p>
+              <div class="jersey__meta">
+                <h3 class="jersey__name">Captain Edition</h3>
+                <p class="card__text">Special captain's cut with the circus crest on the sleeve.</p>
+              </div>
             </div>
-            <div class="card__body">
-              <div class="sizes" aria-label="Available sizes"><span>S</span><span>M</span><span>L</span><span>XL</span></div>
-              <p class="jersey__price">฿ 520</p>
-              <a class="btn btn--primary" href="contact.html" style="width:100%;justify-content:center">Reserve</a>
-            </div>
-          </article>
-
-          <article class="card reveal" data-cat="away">
-            <div class="jersey">
-              <div class="jersey__shirt" data-num="23" aria-hidden="true" style="background:linear-gradient(160deg,#120C0D,#E23A0E)"><span class="jersey__stripes"></span></div>
-              <h3 class="jersey__name">FLAME AWAY</h3>
-              <p class="card__text">Fire-gradient away kit with a dynamic, aggressive look.</p>
-            </div>
-            <div class="card__body">
-              <div class="sizes" aria-label="Available sizes"><span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span></div>
-              <p class="jersey__price">฿ 480</p>
-              <a class="btn btn--primary" href="contact.html" style="width:100%;justify-content:center">Reserve</a>
+            <div class="kit__foot">
+              <div>
+                <span class="sizes__label">Sizes</span>
+                <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li></ul>
+              </div>
+              <p class="jersey__price"><small>Price</small>฿ 520</p>
+              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
             </div>
           </article>
 
-          <article class="card reveal" data-cat="cheer">
-            <div class="jersey">
-              <div class="jersey__shirt" data-num="🎪" aria-hidden="true" style="background:linear-gradient(160deg,#FF8A3D,#E23A0E)"><span class="jersey__stripes"></span></div>
-              <h3 class="jersey__name">FAN CARNIVAL</h3>
-              <p class="card__text">Carnival-pattern fan shirt — instant good vibes in the crowd.</p>
+          <article class="card kit reveal" data-cat="away">
+            <div class="kit__stage">
+              <span class="kit__ghost" aria-hidden="true">23</span>
+              <div class="jersey__shirt" data-num="23" aria-hidden="true" style="background:linear-gradient(158deg,#171011,#D93408)"><span class="jersey__stripes"></span></div>
+              <div class="jersey__meta">
+                <h3 class="jersey__name">Flame Away</h3>
+                <p class="card__text">Fire-gradient away kit with a dynamic, aggressive look.</p>
+              </div>
             </div>
-            <div class="card__body">
-              <div class="sizes" aria-label="Available sizes"><span>S</span><span>M</span><span>L</span><span>XL</span><span>2XL</span></div>
-              <p class="jersey__price">฿ 300</p>
-              <a class="btn btn--primary" href="contact.html" style="width:100%;justify-content:center">Reserve</a>
+            <div class="kit__foot">
+              <div>
+                <span class="sizes__label">Sizes</span>
+                <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li></ul>
+              </div>
+              <p class="jersey__price"><small>Price</small>฿ 480</p>
+              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
+            </div>
+          </article>
+
+          <article class="card kit reveal" data-cat="cheer">
+            <div class="kit__stage">
+              <span class="kit__ghost" aria-hidden="true">◆</span>
+              <div class="jersey__shirt" data-num="◆" aria-hidden="true" style="background:linear-gradient(158deg,#FF9147,#D93408)"><span class="jersey__stripes"></span></div>
+              <div class="jersey__meta">
+                <h3 class="jersey__name">Fan Carnival</h3>
+                <p class="card__text">Carnival-pattern fan shirt — instant good vibes in the crowd.</p>
+              </div>
+            </div>
+            <div class="kit__foot">
+              <div>
+                <span class="sizes__label">Sizes</span>
+                <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+              </div>
+              <p class="jersey__price"><small>Price</small>฿ 300</p>
+              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
             </div>
           </article>
         </div>
       </div>
     </section>
 
+    <!-- SIZE CHART -->
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">Size Guide</p>
+        <h2 class="section__title">Find Your <em>Fit</em></h2>
+        <p class="section__lead">XS–3XL, chest 34"–48". Not sure of your size? Ask us on the Contact page.</p>
+
+        <div class="card reveal" style="margin-top: clamp(28px, 4vw, 44px)">
+          <div class="card__body">
+            <div class="chart-wrap">
+              <table class="chart">
+                <caption>Measure a shirt that already fits you and compare — all figures are flat-lay measurements in inches, so allow a little ease.</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Size</th>
+                    <th scope="col">Chest</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">Shoulder</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">XS</th><td>34</td><td>26</td><td>16</td></tr>
+                  <tr><th scope="row">S</th><td>36</td><td>27</td><td>17</td></tr>
+                  <tr><th scope="row">M</th><td>38</td><td>28</td><td>18</td></tr>
+                  <tr><th scope="row">L</th><td>41</td><td>29</td><td>19</td></tr>
+                  <tr><th scope="row">XL</th><td>43</td><td>30</td><td>20</td></tr>
+                  <tr><th scope="row">2XL</th><td>46</td><td>31</td><td>21</td></tr>
+                  <tr><th scope="row">3XL</th><td>48</td><td>32</td><td>22</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section section--tight">
-      <div class="container grid grid--3">
-        <article class="card feature reveal">
-          <div class="feature__icon" aria-hidden="true">📏</div>
-          <h3 class="card__title">Size Guide</h3>
-          <p class="card__text">XS–3XL, chest 34"–48". Not sure of your size? Ask us on the Contact page.</p>
-        </article>
-        <article class="card feature reveal">
-          <div class="feature__icon" aria-hidden="true">🚚</div>
+      <div class="container grid grid--2">
+        <article class="card feature feature--plate reveal">
+          <span class="feature__icon" aria-hidden="true">◆</span>
           <h3 class="card__title">Pickup &amp; Delivery</h3>
           <p class="card__text">Collect at the event meet-point or ship in batches — pickup dates announced by the team.</p>
         </article>
-        <article class="card feature reveal">
-          <div class="feature__icon" aria-hidden="true">💧</div>
+        <article class="card feature feature--plate reveal">
+          <span class="feature__icon" aria-hidden="true">◆</span>
           <h3 class="card__title">Care</h3>
           <p class="card__text">Cold wash, turn inside out, no tumble dry — keeps the orange bright for longer.</p>
         </article>

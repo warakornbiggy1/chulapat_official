@@ -10,7 +10,7 @@
   <title>About · CHULAPAT_OFFICIAL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Big+Shoulders+Display:wght@600;700;800;900&family=Bodoni+Moda:ital,wght@1,500;1,600&family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
@@ -19,38 +19,46 @@
 
   <main id="main">
     <section class="page-head">
+      <span class="ghost" aria-hidden="true">STORY</span>
       <div class="container">
-        <span class="eyebrow">🎪 Our Story</span>
+        <p class="eyebrow">Our Story</p>
         <h1>About <em>CHULAPAT</em></h1>
         <p>More than a sports color squad — a troupe that brings together people of every talent to put on a show of friendship.</p>
       </div>
     </section>
 
     <section class="section section--tight">
-      <div class="container grid grid--2" style="align-items:center;gap:44px">
+      <div class="container grid grid--2" style="align-items:center;gap:clamp(30px,5vw,64px)">
         <div class="reveal">
-          <span class="eyebrow">The Beginning</span>
+          <p class="eyebrow">The Beginning</p>
           <h2 class="section__title">From Friends <em>to a Legend</em></h2>
           <p class="section__lead">CHULAPAT began in 2019 with friends who believed color sports aren't just about winning — they're a stage where everyone gets to shine. We chose a dark circus theme because the big top stands for diversity: every performer has a part, and together they become something spectacular.</p>
-          <p class="card__text">Orange &amp; black is our heart — orange for energy and joy, black for grit and resolve.</p>
-          <p class="hero__slogan thai" style="font-size:1.15rem;margin-top:18px">มัจจุราชขานชื่อ <b>เราคือแสดดำ</b></p>
+          <p class="card__text" style="margin-top:14px">Orange &amp; black is our heart — orange for energy and joy, black for grit and resolve.</p>
         </div>
-        <div class="hero__logo-wrap reveal">
-          <div class="hero__logo-glow" aria-hidden="true"></div>
-          <img class="hero__logo" src="assets/logo-mark.png" alt="CHULAPAT circus mask emblem" width="700" height="700" style="width:min(360px,80%)" />
+        <div class="emblem-block reveal">
+          <div class="emblem-block__glow" aria-hidden="true"></div>
+          <img src="assets/logo-mark.png" alt="CHULAPAT circus mask emblem" width="700" height="700" loading="lazy" />
         </div>
+      </div>
+    </section>
+
+    <!-- Full-bleed manifesto: the slogan given room to breathe -->
+    <section class="manifesto reveal">
+      <div class="container">
+        <p class="manifesto__quote thai">มัจจุราชขานชื่อ <b>เราคือแสดดำ</b></p>
+        <p class="manifesto__attr">We Are Orange &amp; Black</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container grid grid--2">
-        <article class="card feature reveal">
-          <div class="feature__icon" aria-hidden="true">🎯</div>
+        <article class="card feature feature--plate reveal">
+          <span class="feature__icon" aria-hidden="true">◆</span>
           <h3 class="card__title">Mission</h3>
           <p class="card__text">Create a space where everyone can perform at their best — in an atmosphere that's fun, safe, and full of sportsmanship.</p>
         </article>
-        <article class="card feature reveal">
-          <div class="feature__icon" aria-hidden="true">🔭</div>
+        <article class="card feature feature--plate reveal">
+          <span class="feature__icon" aria-hidden="true">◆</span>
           <h3 class="card__title">Vision</h3>
           <p class="card__text">To be a color squad that's more than a competition — a family people are proud to belong to.</p>
         </article>
@@ -58,24 +66,45 @@
     </section>
 
     <section class="section section--tight">
-      <div class="container center">
-        <span class="eyebrow">What We Stand For</span>
+      <div class="container">
+        <p class="eyebrow">What We Stand For</p>
         <h2 class="section__title">Four Pillars of the <em>Big Top</em></h2>
       </div>
-      <div class="container grid grid--2" style="margin-top:36px;gap:24px">
-        <article class="card feature reveal"><div class="value"><div class="value__no">01</div><div><h3 class="card__title">Sportsmanship</h3><p class="card__text">Respect rivals, accept results, and win or lose with a smile.</p></div></div></article>
-        <article class="card feature reveal"><div class="value"><div class="value__no">02</div><div><h3 class="card__title">Teamwork</h3><p class="card__text">No one is greater than all of us. Every role matters.</p></div></div></article>
-        <article class="card feature reveal"><div class="value"><div class="value__no">03</div><div><h3 class="card__title">Joy</h3><p class="card__text">Happiness is the goal — we compete to make great memories.</p></div></div></article>
-        <article class="card feature reveal"><div class="value"><div class="value__no">04</div><div><h3 class="card__title">Safety</h3><p class="card__text">We look after each other on and off the field. No one gets left behind.</p></div></div></article>
+      <div class="container grid grid--2" style="margin-top:clamp(28px,4vw,44px)">
+        <article class="card feature feature--plate reveal">
+          <div class="value"><span class="value__no">01</span><div>
+            <h3 class="card__title">Sportsmanship</h3>
+            <p class="card__text">Respect rivals, accept results, and win or lose with a smile.</p>
+          </div></div>
+        </article>
+        <article class="card feature feature--plate reveal">
+          <div class="value"><span class="value__no">02</span><div>
+            <h3 class="card__title">Teamwork</h3>
+            <p class="card__text">No one is greater than all of us. Every role matters.</p>
+          </div></div>
+        </article>
+        <article class="card feature feature--plate reveal">
+          <div class="value"><span class="value__no">03</span><div>
+            <h3 class="card__title">Joy</h3>
+            <p class="card__text">Happiness is the goal — we compete to make great memories.</p>
+          </div></div>
+        </article>
+        <article class="card feature feature--plate reveal">
+          <div class="value"><span class="value__no">04</span><div>
+            <h3 class="card__title">Safety</h3>
+            <p class="card__text">We look after each other on and off the field. No one gets left behind.</p>
+          </div></div>
+        </article>
       </div>
     </section>
 
-    <section class="section">
+    <section class="section section--tight">
       <div class="container">
-        <div class="cta-band reveal">
-          <h2>Help Us Write the Next Act</h2>
-          <p style="max-width:540px;margin:10px auto 24px">Athlete, artist, or fan — there's always a stage here for you.</p>
-          <a class="btn btn--ghost" href="contact.html" style="border-color:#fff;color:#fff;background:rgba(0,0,0,0.15)">Say Hello →</a>
+        <div class="marquee-sign reveal">
+          <span class="marquee-sign__frame" aria-hidden="true"></span>
+          <h2>Help Us Write the <em>Next Act</em></h2>
+          <p>Athlete, artist, or fan — there's always a stage here for you.</p>
+          <a class="btn btn--light" href="contact.html"><span class="btn__label">Say Hello</span></a>
         </div>
       </div>
     </section>
