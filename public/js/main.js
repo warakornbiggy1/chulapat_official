@@ -19,6 +19,12 @@
 
   var IG_URL = "https://www.instagram.com/chulapat_official?igsh=MTFkbWNmbHZudmo4aQ%3D%3D&utm_source=qr";
 
+  /* The order form. Single source of truth: every [data-buy] link in the HTML
+     carries this href already (so Buy still works with JS off), and
+     initOrderLinks() re-stamps it at runtime so a typo in markup can't cost an
+     order. Change it here and every Buy button follows. */
+  var ORDER_FORM_URL = "https://forms.gle/wCzdKGDoCH8tyMch8";
+
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   // Current page filename (default to index.html)
@@ -39,6 +45,18 @@
       node.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
     });
     return node;
+  }
+
+  /* The identity is one word — BlackOrange — carrying a colour seam rather than
+     a space. Split into two spans so CSS can shift colour at the seam; there is
+     no whitespace between them, so it still reads as a single word to a screen
+     reader. Both halves clear AA on the ink grounds on their own (bone ~15:1,
+     flame ~7:1), which a gradient across the whole word would not. */
+  function wordmark(extraClass) {
+    return el("span", { class: extraClass ? "wordmark " + extraClass : "wordmark" }, [
+      el("span", { class: "wordmark__b" }, ["Black"]),
+      el("span", { class: "wordmark__o" }, ["Orange"])
+    ]);
   }
 
   /* ---------- Atmosphere layers (embers + foreground vignette) ---------- */
@@ -150,7 +168,7 @@
       el("span", { class: "brand__text" }, [
         (function () { var b = document.createElement("b"); b.textContent = "CHULAPAT"; return b; })(),
         document.createTextNode("_OFFICIAL"),
-        el("small", null, ["Orange · Black"])
+        el("small", null, [wordmark("wordmark--micro")])
       ])
     ]);
 
@@ -211,7 +229,7 @@
         el("img", { src: "assets/logo-ring.png", alt: "", "aria-hidden": "true", width: "44", height: "44", loading: "lazy" }),
         el("h4", null, ["CHULAPAT_OFFICIAL"])
       ]),
-      el("p", { class: "card__text" }, ["Sports color squad in a dark circus theme — orange & black."]),
+      el("p", { class: "card__text" }, ["Sports color squad in a dark circus theme — ", wordmark(), "."]),
       el("p", { class: "footer__slogan thai" }, ["เราคือแสดดำ"])
     ]);
 
@@ -232,7 +250,7 @@
       el("div", { class: "footer__grid container" }, [colBrand, colLinks, colContact]),
       el("div", { class: "footer__bottom container" }, [
         el("span", null, ["© " + new Date().getFullYear() + " CHULAPAT_OFFICIAL. All rights reserved."]),
-        el("span", null, ["Dark Circus · Orange & Black"])
+        el("span", null, ["Dark Circus · ", wordmark("wordmark--micro")])
       ])
     ]);
     mount.appendChild(footer);
@@ -471,6 +489,165 @@
     });
   }
 
+  /* ---------- Order links ----------
+     Every Buy button ships with the real href in markup so it survives JS being
+     off. This re-stamps them from the constant above, so the form URL has
+     exactly one source of truth and a mistyped href in HTML self-heals. */
+  function initOrderLinks() {
+    var links = document.querySelectorAll("[data-buy]");
+    Array.prototype.forEach.call(links, function (a) {
+      a.href = ORDER_FORM_URL;
+      a.target = "_blank";
+      a.rel = "noopener noreferrer";
+    });
+  }
+
+  /* ---------- Sport selector (jersey page) ----------
+     Anchors, not buttons: deep links, native smooth scroll and keyboard
+     operation all come free, and the page still navigates with JS off. The
+     observer only maintains the active state. */
+  function initSportNav() {
+    var bar = document.querySelector("[data-sport-nav]");
+    if (!bar) return;
+
+    var links = Array.prototype.slice.call(bar.querySelectorAll(".sport-btn"));
+    if (!links.length) return;
+
+    var byId = {};
+    var sections = [];
+    links.forEach(function (a) {
+      var id = (a.getAttribute("href") || "").replace(/^#/, "");
+      var section = id && document.getElementById(id);
+      if (!section) return;
+      byId[id] = a;
+      sections.push(section);
+    });
+    if (!sections.length) return;
+
+    var activeId = null;
+    function setActive(id) {
+      if (!id || id === activeId || !byId[id]) return;
+      if (activeId && byId[activeId]) {
+        byId[activeId].classList.remove("is-active");
+        byId[activeId].removeAttribute("aria-current");
+      }
+      activeId = id;
+      byId[id].classList.add("is-active");
+      byId[id].setAttribute("aria-current", "true");
+      // Keep the active chip in view when the bar scrolls horizontally.
+      if (bar.scrollWidth > bar.clientWidth + 4) {
+        var chip = byId[id];
+        var barBox = bar.getBoundingClientRect();
+        var box = chip.getBoundingClientRect();
+        if (box.left < barBox.left || box.right > barBox.right) {
+          bar.scrollTo({
+            left: chip.offsetLeft - (bar.clientWidth - chip.offsetWidth) / 2,
+            behavior: reduceMotion ? "auto" : "smooth"
+          });
+        }
+      }
+    }
+
+    // Immediate feedback on click — the observer would otherwise only catch up
+    // once the smooth scroll arrives.
+    links.forEach(function (a) {
+      a.addEventListener("click", function () {
+        setActive((a.getAttribute("href") || "").replace(/^#/, ""));
+      });
+    });
+
+    /* The reading line: just under the sticky bar. The active sport is simply
+       the last section whose top edge has scrolled above it — unambiguous even
+       when a section is taller than the viewport, and it cannot land in a dead
+       zone between two sections the way a narrow activation band can.
+
+       It is measured from the sections' own scroll-margin-top, which is where
+       an anchored section comes to rest. Deriving it from the bar's height
+       instead put the line 11px above that resting point, so a freshly clicked
+       section counted as "not yet reached" and the chip lagged one behind. */
+    function lineY() {
+      var rest = parseFloat(window.getComputedStyle(sections[0]).scrollMarginTop) || 0;
+      if (!rest) rest = (parseFloat(window.getComputedStyle(bar).top) || 0) + bar.offsetHeight;
+      /* Slack below the resting point, so nudging back up by a few dozen
+         pixels does not immediately flip to the previous sport while its
+         heading is still plainly on screen. */
+      return rest + 40;
+    }
+
+    function pick() {
+      var line = lineY();
+      var best = sections[0];
+      for (var i = 0; i < sections.length; i++) {
+        if (sections[i].getBoundingClientRect().top <= line) best = sections[i];
+      }
+      return best.id;
+    }
+
+    if (!("IntersectionObserver" in window)) {
+      setActive(location.hash.replace(/^#/, "") || sections[0].id);
+      return;
+    }
+
+    /* The root is everything ABOVE the reading line — a tall band from the top
+       of the viewport down to it. A section starts intersecting that band at
+       the exact moment its top edge crosses the line, so the observer fires
+       precisely when the answer changes and stays silent in between. No scroll
+       handler, so nothing runs on the scroll thread.
+
+       Collapsing the root to a 1px line at the reading line looks equivalent
+       and is not: at fractional device pixel ratios it can round away to
+       nothing and the observer then never fires at all. */
+    var io = null;
+    function observe() {
+      if (io) io.disconnect();
+      var below = Math.max(0, window.innerHeight - lineY());
+      io = new IntersectionObserver(function () {
+        setActive(pick());
+      }, { rootMargin: "0px 0px " + -below + "px 0px", threshold: 0 });
+      sections.forEach(function (s) { io.observe(s); });
+    }
+    observe();
+
+    /* The observer covers scrolling, but it is blind to the page changing
+       shape underneath a viewport that has not moved — which is exactly what
+       happens while webfonts and images land after load. The sections grow,
+       a different one ends up under the line, and no intersection state
+       changed, so nothing fires. That is what made a deep link to #futsal
+       settle on Table Tennis on a narrow screen.
+
+       Watching the document's own box closes that gap, and it doubles as the
+       width-change handler: the selector is two rows below 560px, which moves
+       the reading line. */
+    if ("ResizeObserver" in window) {
+      var settleTimer;
+      var ro = new ResizeObserver(function () {
+        clearTimeout(settleTimer);
+        settleTimer = setTimeout(function () { observe(); setActive(pick()); }, 120);
+      });
+      ro.observe(document.body);
+    }
+
+
+    // The line moves when the bar reflows (the selector is 2 rows on mobile).
+    var resizeTimer;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () { observe(); setActive(pick()); }, 180);
+    });
+
+    /* Deep link: the browser does the scrolling (scroll-margin-top keeps the
+       heading clear of the sticky chrome); we only light the right chip. */
+    /* Deep link: the browser does the scrolling (scroll-margin-top keeps the
+       heading clear of the sticky chrome). Light the requested chip straight
+       away for immediate feedback; the observer and the settle-watcher above
+       take it from there. */
+    var hash = location.hash.replace(/^#/, "");
+    setActive(byId[hash] ? hash : pick());
+    window.addEventListener("load", function () {
+      requestAnimationFrame(function () { setActive(pick()); });
+    });
+  }
+
   /* ---------- Boot ---------- */
   document.addEventListener("DOMContentLoaded", function () {
     buildAtmosphere();
@@ -484,5 +661,7 @@
     initMagnetic();
     initFilters();
     initContactForm();
+    initOrderLinks();
+    initSportNav();
   });
 })();

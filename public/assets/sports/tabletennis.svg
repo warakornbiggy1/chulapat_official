@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-hidden="true" focusable="false">
+  <!-- CHULAPAT_OFFICIAL — Dark Circus sport medallion: Table Tennis.
+       Monoline, 64-grid. Paddle mass sits left of centre and the ball
+       counterweights it bottom-right, so the glyph balances on the same
+       optical centre as the ball-shaped icons. -->
+  <g fill="none" stroke="#E8B96A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="27.5" cy="25" r="13.5"/>
+    <circle cx="27.5" cy="25" r="7.5" opacity=".5"/>
+    <path d="M19.4 35.8 13 48.5"/>
+    <circle cx="47.5" cy="45.5" r="5"/>
+  </g>
+</svg>

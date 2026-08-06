@@ -109,6 +109,13 @@
   --nav-h: 66px;
   --nav-space: 96px;
 
+  /* Sport selector (jersey). The bar parks just below the condensed nav pill,
+     which bottoms out at 66px once stuck; 76px leaves a hairline of ground
+     between the two pieces of floating chrome. --sport-bar-h feeds the
+     scroll-margin on each sport section so a heading never lands underneath. */
+  --sport-bar-top: 76px;
+  --sport-bar-h: 114px;
+
   /* Motion */
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
@@ -267,6 +274,57 @@ em, .serif {
    the brand's signature and must never be split, hence the nowrap. */
 .thai { font-family: var(--font-thai); font-size: 1.05em; line-height: 1.85; }
 .thai b { white-space: nowrap; }
+
+/* The identity wordmark — BlackOrange.
+   One word, never two: set in the display face with negative tracking so the
+   two halves lock into a single mark, and differentiated by colour rather than
+   by a space. It inherits nothing from its host, because it lands inside
+   widely-tracked labels (.hero__tagline, .manifesto__attr, footer) that would
+   otherwise pull the seam apart. nowrap keeps it from breaking mid-word. */
+.wordmark {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1em;
+  letter-spacing: -0.012em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+.wordmark__b { color: var(--bone); }
+.wordmark__o { color: var(--flame); }
+
+/* The seam gets a gradient, but a bounded one: it runs --flame-hi → --flame,
+   which measure 8.9:1 and 7:1 on the ink grounds. Letting it fall to
+   --flame-lo would land at 4.3:1 and fail AA for the small instances.
+   Guarded by @supports so a browser without background-clip keeps the solid
+   colour above rather than rendering nothing. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .wordmark__o {
+    background-image: linear-gradient(96deg, var(--flame-hi), var(--flame) 64%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+}
+
+/* Large setting — hero tagline and the About manifesto sign-off. */
+.wordmark--hero {
+  font-size: clamp(1.45rem, 3vw, 2.4rem);
+  font-weight: 900;
+  letter-spacing: -0.022em;
+  line-height: 1;
+  vertical-align: -0.12em;
+}
+.wordmark--hero .wordmark__b { text-shadow: 0 2px 22px rgba(5, 3, 4, 0.9); }
+/* drop-shadow rather than text-shadow: the orange half is painted through a
+   clipped background, which text-shadow cannot see. */
+.wordmark--hero .wordmark__o { filter: drop-shadow(0 0 18px rgba(255, 106, 26, 0.5)); }
+
+/* Small setting — nav lockup and footer rule line, where the mark is a label
+   rather than a statement. */
+.wordmark--micro { font-size: 1.16em; font-weight: 700; letter-spacing: 0.03em; }
 
 .container {
   width: 100%;
@@ -637,6 +695,21 @@ em, .serif {
 .btn--block { width: 100%; }
 .btn:active { scale: 0.975; }
 
+/* The one unmissable CTA at the foot of the kit page. Scaled up and given the
+   marquee's own gold halo so it reads as the sign's headline act, not another
+   button in the stack. */
+.btn--buy {
+  padding: 19px 46px;
+  font-size: var(--t-body);
+  letter-spacing: 0.1em;
+  box-shadow: 0 16px 46px -14px rgba(246, 237, 226, 0.55), 0 0 0 1px rgba(255, 227, 174, 0.5),
+              0 0 44px -10px rgba(255, 106, 26, 0.7);
+}
+.btn--buy:hover {
+  box-shadow: 0 22px 60px -14px rgba(255, 227, 174, 0.7), 0 0 0 1px var(--gold-hi),
+              0 0 60px -8px rgba(255, 106, 26, 0.9);
+}
+
 /* ---------------------------------------------------------
    09 · Lit surfaces — cards are lit, not outlined
    --------------------------------------------------------- */
@@ -1002,7 +1075,9 @@ em, .serif {
 }
 .ticker:hover .ticker__track,
 .ticker:focus-within .ticker__track { animation-play-state: paused; }
-.ticker__track span {
+/* Direct children only — the BlackOrange wordmark nests spans inside a ticker
+   item, and a descendant selector would give each half its own diamond. */
+.ticker__track > span {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(0.95rem, 1.4vw, 1.25rem);
@@ -1011,8 +1086,9 @@ em, .serif {
   color: var(--gold);
   padding-inline: 0 26px;
 }
-.ticker__track span.thai { font-family: var(--font-thai); font-weight: 600; letter-spacing: 0.08em; }
-.ticker__track span::after {
+.ticker__track > span.thai { font-family: var(--font-thai); font-weight: 600; letter-spacing: 0.08em; }
+.ticker__track > span.wordmark { letter-spacing: -0.012em; font-size: clamp(1.05rem, 1.6vw, 1.4rem); }
+.ticker__track > span::after {
   content: "◆";
   margin-left: 26px;
   color: var(--flame);
@@ -1348,8 +1424,163 @@ em, .serif {
 .is-filtered-out { display: none !important; }
 
 /* ---------------------------------------------------------
-   17 · Jersey
+   17 · Jersey — sport selector
    --------------------------------------------------------- */
+/* Sticks under the nav pill. Sits at z-index 40: above page content, below
+   both the nav (150) and the foreground vignette (60), so it dims with the
+   rest of the page instead of floating unnaturally bright above it. */
+/* The zone is the sticky containing block: it has to wrap the bar AND all six
+   sections, or the bar unsticks the moment its own section scrolls past. */
+.sport-zone { position: relative; }
+
+.sport-bar {
+  position: sticky;
+  top: var(--sport-bar-top);
+  z-index: 40;
+  /* Matches the .container content box exactly, so the bar's edges line up
+     with the kit cards below it rather than with the container's border box. */
+  width: calc(min(var(--maxw), 100%) - var(--gutter) * 2);
+  margin: 0 auto clamp(30px, 4vw, 52px);
+  border-radius: var(--r-lg);
+  background: rgba(9, 6, 7, 0.82);
+  -webkit-backdrop-filter: blur(24px) saturate(165%);
+  backdrop-filter: blur(24px) saturate(165%);
+  box-shadow: inset 0 0 0 1px var(--hair), inset 0 1px 0 rgba(255, 236, 214, 0.07),
+              0 20px 44px -26px rgba(0, 0, 0, 0.95);
+}
+.sport-bar__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  padding: 10px;
+  list-style: none;
+  margin: 0;
+}
+
+.sport-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 6px 14px;
+  border-radius: var(--r-md);
+  text-align: center;
+  color: var(--bone-dim);
+  transition: color var(--dur-2) var(--ease), transform var(--dur-2) var(--ease),
+              background var(--dur-2) var(--ease);
+}
+/* Marquee-bulb accent, lit only on the active sport. */
+.sport-btn::after {
+  content: "";
+  position: absolute;
+  left: 22%; right: 22%;
+  bottom: 4px;
+  height: 4px;
+  background: radial-gradient(circle at center, var(--gold-hi) 0 1.4px, rgba(232, 185, 106, 0.25) 1.7px, transparent 2.3px)
+              repeat-x center / 9px 100%;
+  opacity: 0;
+  transition: opacity var(--dur-2) var(--ease);
+}
+
+.sport-btn__plate {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 28%, rgba(255, 106, 26, 0.13), rgba(255, 106, 26, 0.025));
+  box-shadow: inset 0 0 0 1px var(--hair);
+  transition: box-shadow var(--dur-3) var(--ease), background var(--dur-3) var(--ease),
+              transform var(--dur-3) var(--ease);
+}
+/* The glyph files carry a gold stroke. State lives on the plate, not the
+   artwork — so dropping a real sport logo in over the SVG inherits every
+   state for free. */
+.sport-btn__plate img {
+  width: 64%;
+  height: 64%;
+  opacity: 0.62;
+  filter: saturate(0.35);
+  transition: opacity var(--dur-3) var(--ease), filter var(--dur-3) var(--ease);
+}
+.sport-btn__name {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.sport-btn:hover { color: var(--bone); transform: translateY(-3px); }
+.sport-btn:hover .sport-btn__plate {
+  box-shadow: inset 0 0 0 1px var(--hair-strong), 0 0 24px -8px rgba(255, 106, 26, 0.75);
+}
+.sport-btn:hover .sport-btn__plate img { opacity: 1; filter: saturate(1); }
+
+.sport-btn.is-active { color: var(--gold-hi); }
+.sport-btn.is-active .sport-btn__plate {
+  background: radial-gradient(circle at 40% 28%, rgba(255, 145, 71, 0.42), rgba(255, 106, 26, 0.12));
+  box-shadow: inset 0 0 0 1px var(--gold), 0 0 32px -6px rgba(255, 106, 26, 0.9);
+}
+.sport-btn.is-active .sport-btn__plate img {
+  opacity: 1;
+  filter: saturate(1.35) brightness(1.15) drop-shadow(0 0 6px rgba(255, 168, 96, 0.7));
+}
+.sport-btn.is-active::after { opacity: 1; filter: drop-shadow(0 0 5px var(--gold)); }
+
+/* ---------------------------------------------------------
+   17b · Jersey — per-sport sections
+   --------------------------------------------------------- */
+.sport-section {
+  /* Clears the nav pill and the sticky selector, so an anchored heading is
+     never parked underneath either. */
+  scroll-margin-top: calc(var(--sport-bar-top) + var(--sport-bar-h) + 18px);
+  padding-block: clamp(30px, 4.5vw, 58px);
+}
+.sport-head {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.2vw, 24px);
+  flex-wrap: wrap;
+  padding-bottom: clamp(18px, 2.4vw, 28px);
+  margin-bottom: clamp(22px, 3vw, 36px);
+  border-bottom: 1px solid var(--hair);
+}
+.sport-head__plate {
+  flex-shrink: 0;
+  width: clamp(54px, 6vw, 68px);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 26%, rgba(255, 106, 26, 0.24), rgba(255, 106, 26, 0.04));
+  box-shadow: inset 0 0 0 1px var(--hair-strong), 0 0 30px -10px rgba(255, 106, 26, 0.8);
+}
+.sport-head__plate img { width: 62%; height: 62%; }
+.sport-head__text { flex: 1 1 220px; }
+.sport-head__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--t-d3);
+  line-height: 0.94;
+  letter-spacing: -0.008em;
+  text-transform: uppercase;
+  color: var(--bone);
+  margin: 0 0 6px;
+}
+.sport-head__note {
+  margin: 0;
+  font-size: var(--t-xs);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.sport-head__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.sport-head__actions .btn { padding: 12px 24px; }
+
 .kit-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1496,6 +1727,31 @@ em, .serif {
   text-transform: uppercase;
   color: var(--bone-faint);
 }
+
+/* Sizing caveat — the figures in the chart are indicative, and this page now
+   sends people straight to a live order form, so the qualifier has to carry
+   real visual weight rather than hide in the caption. */
+.size-caveat {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin: clamp(20px, 2.6vw, 30px) 0 0;
+  padding: 16px 20px;
+  border-radius: var(--r-md);
+  background: rgba(255, 106, 26, 0.07);
+  box-shadow: inset 0 0 0 1px var(--hair-flame);
+  color: var(--bone-2);
+  font-size: var(--t-sm);
+}
+.size-caveat__mark {
+  flex-shrink: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.4;
+  color: var(--flame-hi);
+}
+.size-caveat b { color: var(--gold-hi); font-weight: 600; }
 
 /* Refined size chart */
 .chart-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -1778,22 +2034,164 @@ em, .serif {
   color: var(--bone-faint);
 }
 
+/* Post cards, self-hosted.
+   Instagram's official embed renders in a cross-origin iframe whose white
+   chrome cannot be reached from out here, so it punched a light hole through
+   the dark theme on every load. These are our own cards: same lit-surface
+   language as .card, and the page keeps the strict CSP every other page runs. */
 .ig-feed {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 22px;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.6vw, 20px);
   margin-top: clamp(30px, 4vw, 48px);
 }
-.ig-card {
-  flex: 0 1 380px;
-  max-width: 540px;
-  min-width: 300px;
+
+.ig-post {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  background: var(--satin), var(--ink-700);
+  box-shadow: inset 0 0 0 1px var(--hair), var(--sheen), var(--elev-2);
   content-visibility: auto;
-  contain-intrinsic-size: auto 620px;
+  contain-intrinsic-size: auto 320px;
+  transition: transform var(--dur-3) var(--ease), box-shadow var(--dur-3) var(--ease);
 }
-.ig-card .instagram-media { margin: 0 auto !important; }
+.ig-post:hover {
+  transform: translateY(-6px);
+  box-shadow: inset 0 0 0 1px var(--hair-strong), var(--elev-3), var(--glow-flame);
+}
+
+.ig-post__media {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  /* Ground stays dark even before an image decodes — no white flash. */
+  background:
+    radial-gradient(76% 62% at 50% 12%, rgba(255, 106, 26, 0.14), transparent 68%),
+    linear-gradient(164deg, var(--ink-600), var(--ink-900));
+}
+.ig-post__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-4) var(--ease);
+}
+.ig-post:hover .ig-post__media img { transform: scale(1.045); }
+
+/* Contact-sheet plate — shown until a real photo is dropped into assets/posts/.
+   The emblem is ghosted behind a frame number, so an unfilled card reads as a
+   film frame waiting to be printed rather than as a broken image. */
+.ig-post__plate {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 14px;
+}
+.ig-post__plate::before {
+  content: "";
+  position: absolute;
+  inset: 16%;
+  background: url("../assets/logo-ring.png") center / contain no-repeat;
+  opacity: 0.13;
+  filter: grayscale(0.4) brightness(0.85);
+  pointer-events: none;
+}
+.ig-post__frame {
+  position: relative;
+  font-family: ui-monospace, "Cascadia Code", "SF Mono", monospace;
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  background: rgba(5, 3, 4, 0.55);
+  box-shadow: inset 0 0 0 1px var(--hair);
+  padding: 5px 10px;
+  border-radius: var(--r-sm);
+}
+.ig-post__cue {
+  position: relative;
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.ig-post__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px clamp(14px, 1.6vw, 18px) 18px;
+  border-top: 1px solid var(--hair);
+}
+.ig-post__caption {
+  margin: 0;
+  color: var(--bone-2);
+  font-size: var(--t-sm);
+  line-height: 1.55;
+  /* Two lines keeps every card in the row the same height. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ig-post__meta {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-size: var(--t-micro);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+/* A long date must truncate rather than shove the affordance out of the card —
+   at 360px these cards are only ~126px wide inside their padding. */
+.ig-post__when {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.ig-post__go {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--gold);
+  transition: color var(--dur-1) var(--ease-soft);
+}
+.ig-post:hover .ig-post__go { color: var(--gold-hi); }
+
+/* Empty state — charcoal skeletons with a slow shimmer. Never a light
+   placeholder; the whole point of this rework was removing the white. */
 .ig-empty { display: none; text-align: center; }
+.ig-empty.is-visible { display: block; }
+.ig-skeletons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(12px, 1.6vw, 20px);
+  margin-top: clamp(30px, 4vw, 48px);
+}
+.ig-skeleton {
+  aspect-ratio: 1;
+  border-radius: var(--r-md);
+  box-shadow: inset 0 0 0 1px var(--hair);
+  background: linear-gradient(100deg,
+    var(--ink-700) 28%,
+    var(--ink-500) 46%,
+    var(--ink-600) 54%,
+    var(--ink-700) 72%) 0 0 / 320% 100%;
+  animation: igShimmer 3.2s var(--ease-soft) infinite;
+}
+.ig-skeleton:nth-child(2) { animation-delay: 0.35s; }
+.ig-skeleton:nth-child(3) { animation-delay: 0.7s; }
+@keyframes igShimmer { to { background-position: -320% 0; } }
+
 .ig-empty code {
   font-family: ui-monospace, "Cascadia Code", monospace;
   font-size: 0.85em;
@@ -2090,6 +2488,7 @@ em, .serif {
 
 @media (max-width: 940px) {
   :root { --nav-space: 84px; }
+  .ig-feed, .ig-skeletons { grid-template-columns: repeat(2, 1fr); }
   .editorial { grid-template-columns: 1fr; }
   .editorial > .feature--lead { grid-row: auto; }
   .kit-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2143,7 +2542,18 @@ em, .serif {
 }
 
 @media (max-width: 560px) {
-  :root { --nav-space: 78px; }
+  :root { --nav-space: 78px; --sport-bar-top: 72px; --sport-bar-h: 164px; }
+  /* Six across stops being legible below ~560px, so the selector becomes a
+     3 × 2 grid. Everything is compacted hard — it is sticky, and this viewport
+     cannot spare the height. The label goes nowrap at 0.52rem, which still
+     fits "Table Tennis" in a 97px cell. */
+  .sport-bar__grid { grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 8px; }
+  .sport-btn { padding: 8px 4px 11px; gap: 6px; }
+  .sport-btn__plate { width: 34px; height: 34px; }
+  .sport-btn__name { font-size: 0.52rem; letter-spacing: 0.1em; white-space: nowrap; }
+  .sport-btn::after { bottom: 3px; height: 3px; }
+  .sport-head__actions { width: 100%; }
+  .sport-head__actions .btn { flex: 1 1 140px; }
   .grid--2, .grid--3 { grid-template-columns: 1fr; }
   .kit-grid { grid-template-columns: 1fr; }
   .kit-grid > .kit--hero { grid-column: auto; }

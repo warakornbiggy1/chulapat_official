@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="color-scheme" content="dark" />
-  <meta name="description" content="CHULAPAT_OFFICIAL jerseys — dark circus design in orange & black, with sizes and pricing." />
+  <meta name="description" content="CHULAPAT_OFFICIAL kits — BlackOrange dark circus design for basketball, volleyball, table tennis, futsal, petanque and badminton, with sizes and pricing." />
   <title>Jersey · CHULAPAT_OFFICIAL</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -23,145 +23,525 @@
       <div class="container">
         <p class="eyebrow">This Season's Kit</p>
         <h1>The <em>Jersey</em> Collection</h1>
-        <p>Dark circus design in orange &amp; black — breathable, comfortable, built for the field and the stands.</p>
+        <p>Dark circus design in <span class="wordmark"><span class="wordmark__b">Black</span><span class="wordmark__o">Orange</span></span> — breathable, comfortable, built for the field and the stands. Pick your sport.</p>
       </div>
     </section>
 
-    <section class="section section--tight">
-      <div class="container">
-        <div class="filters" data-filter-group data-target="#jersey-grid" role="group" aria-label="Filter kits by type">
-          <button class="chip is-active" type="button" data-cat="all">All</button>
-          <button class="chip" type="button" data-cat="home">Home</button>
-          <button class="chip" type="button" data-cat="away">Away</button>
-          <button class="chip" type="button" data-cat="cheer">Fans</button>
+    <!-- The selector and all six sport sections share this wrapper: position:sticky
+         only holds within its own parent, so the bar has to be a sibling of every
+         section it tracks, not nested inside the first one. -->
+    <div class="sport-zone">
+      <nav class="sport-bar" data-sport-nav aria-label="Choose a sport">
+        <ul class="sport-bar__grid">
+          <li>
+            <a class="sport-btn" href="#basketball">
+              <span class="sport-btn__plate"><img src="assets/sports/basketball.svg" alt="" width="46" height="46" /></span>
+              <span class="sport-btn__name">Basketball</span>
+            </a>
+          </li>
+          <li>
+            <a class="sport-btn" href="#volleyball">
+              <span class="sport-btn__plate"><img src="assets/sports/volleyball.svg" alt="" width="46" height="46" /></span>
+              <span class="sport-btn__name">Volleyball</span>
+            </a>
+          </li>
+          <li>
+            <a class="sport-btn" href="#tabletennis">
+              <span class="sport-btn__plate"><img src="assets/sports/tabletennis.svg" alt="" width="46" height="46" /></span>
+              <span class="sport-btn__name">Table Tennis</span>
+            </a>
+          </li>
+          <li>
+            <a class="sport-btn" href="#futsal">
+              <span class="sport-btn__plate"><img src="assets/sports/futsal.svg" alt="" width="46" height="46" /></span>
+              <span class="sport-btn__name">Futsal</span>
+            </a>
+          </li>
+          <li>
+            <a class="sport-btn" href="#petanque">
+              <span class="sport-btn__plate"><img src="assets/sports/petanque.svg" alt="" width="46" height="46" /></span>
+              <span class="sport-btn__name">Petanque</span>
+            </a>
+          </li>
+          <li>
+            <a class="sport-btn" href="#badminton">
+              <span class="sport-btn__plate"><img src="assets/sports/badminton.svg" alt="" width="46" height="46" /></span>
+              <span class="sport-btn__name">Badminton</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- ================= BASKETBALL ================= -->
+      <section class="section sport-section" id="basketball" aria-labelledby="basketball-title">
+        <div class="container">
+          <div class="sport-head reveal">
+            <span class="sport-head__plate"><img src="assets/sports/basketball.svg" alt="" width="68" height="68" /></span>
+            <div class="sport-head__text">
+              <h2 class="sport-head__title" id="basketball-title">Basketball</h2>
+              <p class="sport-head__note">Home · Away · Fan Tee</p>
+            </div>
+            <div class="sport-head__actions">
+              <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy a Basketball kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              <a class="btn btn--ghost" href="contact.html"><span class="btn__label">Size help</span></a>
+            </div>
+          </div>
+
+          <div class="kit-grid">
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">09</span>
+                <div class="jersey__shirt" data-num="09" aria-hidden="true"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Basketball Home</h3>
+                  <p class="card__text">Bold orange home kit with classic pinstripes.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Basketball home kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">23</span>
+                <div class="jersey__shirt" data-num="23" aria-hidden="true" style="background:linear-gradient(158deg,#2C1D18,#0A0607)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Basketball Away</h3>
+                  <p class="card__text">Deep black away kit with ember-orange trim.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Basketball away kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">★</span>
+                <div class="jersey__shirt" data-num="★" aria-hidden="true" style="background:linear-gradient(158deg,#FFE3AE,#E8B96A 45%,#FF6A1A)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Basketball Fan Tee</h3>
+                  <p class="card__text">Golden-orange fan tee — glows across the whole stand.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li><li>3XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 320</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Basketball fan tee — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+          </div>
         </div>
+      </section>
 
-        <div class="kit-grid" id="jersey-grid">
-          <article class="card kit kit--hero reveal" data-cat="home">
-            <div class="kit__stage">
-              <span class="kit__ghost" aria-hidden="true">09</span>
-              <div class="jersey__shirt" data-num="09" aria-hidden="true"><span class="jersey__stripes"></span></div>
-              <div class="jersey__meta">
-                <h3 class="jersey__name">Circus Home</h3>
-                <p class="card__text">Bold orange home kit with classic pinstripes.</p>
-              </div>
+      <!-- ================= VOLLEYBALL ================= -->
+      <section class="section sport-section" id="volleyball" aria-labelledby="volleyball-title">
+        <div class="container">
+          <div class="sport-head reveal">
+            <span class="sport-head__plate"><img src="assets/sports/volleyball.svg" alt="" width="68" height="68" /></span>
+            <div class="sport-head__text">
+              <h2 class="sport-head__title" id="volleyball-title">Volleyball</h2>
+              <p class="sport-head__note">Home · Away · Fan Tee</p>
             </div>
-            <div class="kit__foot">
-              <div>
-                <span class="sizes__label">Sizes</span>
-                <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
-              </div>
-              <p class="jersey__price"><small>Price</small>฿ 450</p>
-              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
+            <div class="sport-head__actions">
+              <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy a Volleyball kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              <a class="btn btn--ghost" href="contact.html"><span class="btn__label">Size help</span></a>
             </div>
-          </article>
+          </div>
 
-          <article class="card kit reveal" data-cat="away">
-            <div class="kit__stage">
-              <span class="kit__ghost" aria-hidden="true">07</span>
-              <div class="jersey__shirt" data-num="07" aria-hidden="true" style="background:linear-gradient(158deg,#2C1D18,#0A0607)"><span class="jersey__stripes"></span></div>
-              <div class="jersey__meta">
-                <h3 class="jersey__name">Midnight Away</h3>
-                <p class="card__text">Deep black away kit with ember-orange trim.</p>
+          <div class="kit-grid">
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">03</span>
+                <div class="jersey__shirt" data-num="03" aria-hidden="true"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Volleyball Home</h3>
+                  <p class="card__text">Bold orange home kit with classic pinstripes.</p>
+                </div>
               </div>
-            </div>
-            <div class="kit__foot">
-              <div>
-                <span class="sizes__label">Sizes</span>
-                <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Volleyball home kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
               </div>
-              <p class="jersey__price"><small>Price</small>฿ 450</p>
-              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card kit reveal" data-cat="cheer">
-            <div class="kit__stage">
-              <span class="kit__ghost" aria-hidden="true">★</span>
-              <div class="jersey__shirt" data-num="★" aria-hidden="true" style="background:linear-gradient(158deg,#FFE3AE,#E8B96A 45%,#FF6A1A)"><span class="jersey__stripes"></span></div>
-              <div class="jersey__meta">
-                <h3 class="jersey__name">Ringmaster Tee</h3>
-                <p class="card__text">Golden-orange fan tee — glows across the whole stand.</p>
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">11</span>
+                <div class="jersey__shirt" data-num="11" aria-hidden="true" style="background:linear-gradient(158deg,#2C1D18,#0A0607)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Volleyball Away</h3>
+                  <p class="card__text">Deep black away kit with ember-orange trim.</p>
+                </div>
               </div>
-            </div>
-            <div class="kit__foot">
-              <div>
-                <span class="sizes__label">Sizes</span>
-                <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li><li>3XL</li></ul>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Volleyball away kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
               </div>
-              <p class="jersey__price"><small>Price</small>฿ 320</p>
-              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
-            </div>
-          </article>
+            </article>
 
-          <article class="card kit reveal" data-cat="home">
-            <div class="kit__stage">
-              <span class="kit__ghost" aria-hidden="true">10</span>
-              <div class="jersey__shirt" data-num="10" aria-hidden="true"><span class="jersey__stripes"></span></div>
-              <div class="jersey__meta">
-                <h3 class="jersey__name">Captain Edition</h3>
-                <p class="card__text">Special captain's cut with the circus crest on the sleeve.</p>
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">★</span>
+                <div class="jersey__shirt" data-num="★" aria-hidden="true" style="background:linear-gradient(158deg,#FFE3AE,#E8B96A 45%,#FF6A1A)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Volleyball Fan Tee</h3>
+                  <p class="card__text">Golden-orange fan tee — glows across the whole stand.</p>
+                </div>
               </div>
-            </div>
-            <div class="kit__foot">
-              <div>
-                <span class="sizes__label">Sizes</span>
-                <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li></ul>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li><li>3XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 320</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Volleyball fan tee — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
               </div>
-              <p class="jersey__price"><small>Price</small>฿ 520</p>
-              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
-            </div>
-          </article>
-
-          <article class="card kit reveal" data-cat="away">
-            <div class="kit__stage">
-              <span class="kit__ghost" aria-hidden="true">23</span>
-              <div class="jersey__shirt" data-num="23" aria-hidden="true" style="background:linear-gradient(158deg,#171011,#D93408)"><span class="jersey__stripes"></span></div>
-              <div class="jersey__meta">
-                <h3 class="jersey__name">Flame Away</h3>
-                <p class="card__text">Fire-gradient away kit with a dynamic, aggressive look.</p>
-              </div>
-            </div>
-            <div class="kit__foot">
-              <div>
-                <span class="sizes__label">Sizes</span>
-                <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li></ul>
-              </div>
-              <p class="jersey__price"><small>Price</small>฿ 480</p>
-              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
-            </div>
-          </article>
-
-          <article class="card kit reveal" data-cat="cheer">
-            <div class="kit__stage">
-              <span class="kit__ghost" aria-hidden="true">◆</span>
-              <div class="jersey__shirt" data-num="◆" aria-hidden="true" style="background:linear-gradient(158deg,#FF9147,#D93408)"><span class="jersey__stripes"></span></div>
-              <div class="jersey__meta">
-                <h3 class="jersey__name">Fan Carnival</h3>
-                <p class="card__text">Carnival-pattern fan shirt — instant good vibes in the crowd.</p>
-              </div>
-            </div>
-            <div class="kit__foot">
-              <div>
-                <span class="sizes__label">Sizes</span>
-                <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
-              </div>
-              <p class="jersey__price"><small>Price</small>฿ 300</p>
-              <a class="btn btn--primary" href="contact.html"><span class="btn__label">Reserve</span></a>
-            </div>
-          </article>
+            </article>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <!-- ================= TABLE TENNIS ================= -->
+      <section class="section sport-section" id="tabletennis" aria-labelledby="tabletennis-title">
+        <div class="container">
+          <div class="sport-head reveal">
+            <span class="sport-head__plate"><img src="assets/sports/tabletennis.svg" alt="" width="68" height="68" /></span>
+            <div class="sport-head__text">
+              <h2 class="sport-head__title" id="tabletennis-title">Table Tennis</h2>
+              <p class="sport-head__note">Home · Away · Fan Tee</p>
+            </div>
+            <div class="sport-head__actions">
+              <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy a Table Tennis kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              <a class="btn btn--ghost" href="contact.html"><span class="btn__label">Size help</span></a>
+            </div>
+          </div>
+
+          <div class="kit-grid">
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">07</span>
+                <div class="jersey__shirt" data-num="07" aria-hidden="true"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Table Tennis Home</h3>
+                  <p class="card__text">Bold orange home kit with classic pinstripes.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Table Tennis home kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">14</span>
+                <div class="jersey__shirt" data-num="14" aria-hidden="true" style="background:linear-gradient(158deg,#2C1D18,#0A0607)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Table Tennis Away</h3>
+                  <p class="card__text">Deep black away kit with ember-orange trim.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Table Tennis away kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">★</span>
+                <div class="jersey__shirt" data-num="★" aria-hidden="true" style="background:linear-gradient(158deg,#FFE3AE,#E8B96A 45%,#FF6A1A)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Table Tennis Fan Tee</h3>
+                  <p class="card__text">Golden-orange fan tee — glows across the whole stand.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li><li>3XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 320</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Table Tennis fan tee — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= FUTSAL ================= -->
+      <section class="section sport-section" id="futsal" aria-labelledby="futsal-title">
+        <div class="container">
+          <div class="sport-head reveal">
+            <span class="sport-head__plate"><img src="assets/sports/futsal.svg" alt="" width="68" height="68" /></span>
+            <div class="sport-head__text">
+              <h2 class="sport-head__title" id="futsal-title">Futsal</h2>
+              <p class="sport-head__note">Home · Away · Fan Tee</p>
+            </div>
+            <div class="sport-head__actions">
+              <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy a Futsal kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              <a class="btn btn--ghost" href="contact.html"><span class="btn__label">Size help</span></a>
+            </div>
+          </div>
+
+          <div class="kit-grid">
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">10</span>
+                <div class="jersey__shirt" data-num="10" aria-hidden="true"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Futsal Home</h3>
+                  <p class="card__text">Bold orange home kit with classic pinstripes.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Futsal home kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">08</span>
+                <div class="jersey__shirt" data-num="08" aria-hidden="true" style="background:linear-gradient(158deg,#2C1D18,#0A0607)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Futsal Away</h3>
+                  <p class="card__text">Deep black away kit with ember-orange trim.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Futsal away kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">★</span>
+                <div class="jersey__shirt" data-num="★" aria-hidden="true" style="background:linear-gradient(158deg,#FFE3AE,#E8B96A 45%,#FF6A1A)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Futsal Fan Tee</h3>
+                  <p class="card__text">Golden-orange fan tee — glows across the whole stand.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li><li>3XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 320</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Futsal fan tee — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PETANQUE ================= -->
+      <section class="section sport-section" id="petanque" aria-labelledby="petanque-title">
+        <div class="container">
+          <div class="sport-head reveal">
+            <span class="sport-head__plate"><img src="assets/sports/petanque.svg" alt="" width="68" height="68" /></span>
+            <div class="sport-head__text">
+              <h2 class="sport-head__title" id="petanque-title">Petanque</h2>
+              <p class="sport-head__note">Home · Away · Fan Tee</p>
+            </div>
+            <div class="sport-head__actions">
+              <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy a Petanque kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              <a class="btn btn--ghost" href="contact.html"><span class="btn__label">Size help</span></a>
+            </div>
+          </div>
+
+          <div class="kit-grid">
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">06</span>
+                <div class="jersey__shirt" data-num="06" aria-hidden="true"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Petanque Home</h3>
+                  <p class="card__text">Bold orange home kit with classic pinstripes.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Petanque home kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">21</span>
+                <div class="jersey__shirt" data-num="21" aria-hidden="true" style="background:linear-gradient(158deg,#2C1D18,#0A0607)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Petanque Away</h3>
+                  <p class="card__text">Deep black away kit with ember-orange trim.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Petanque away kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">★</span>
+                <div class="jersey__shirt" data-num="★" aria-hidden="true" style="background:linear-gradient(158deg,#FFE3AE,#E8B96A 45%,#FF6A1A)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Petanque Fan Tee</h3>
+                  <p class="card__text">Golden-orange fan tee — glows across the whole stand.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li><li>3XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 320</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Petanque fan tee — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= BADMINTON ================= -->
+      <section class="section sport-section" id="badminton" aria-labelledby="badminton-title">
+        <div class="container">
+          <div class="sport-head reveal">
+            <span class="sport-head__plate"><img src="assets/sports/badminton.svg" alt="" width="68" height="68" /></span>
+            <div class="sport-head__text">
+              <h2 class="sport-head__title" id="badminton-title">Badminton</h2>
+              <p class="sport-head__note">Home · Away · Fan Tee</p>
+            </div>
+            <div class="sport-head__actions">
+              <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy a Badminton kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              <a class="btn btn--ghost" href="contact.html"><span class="btn__label">Size help</span></a>
+            </div>
+          </div>
+
+          <div class="kit-grid">
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">05</span>
+                <div class="jersey__shirt" data-num="05" aria-hidden="true"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Badminton Home</h3>
+                  <p class="card__text">Bold orange home kit with classic pinstripes.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Badminton home kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">17</span>
+                <div class="jersey__shirt" data-num="17" aria-hidden="true" style="background:linear-gradient(158deg,#2C1D18,#0A0607)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Badminton Away</h3>
+                  <p class="card__text">Deep black away kit with ember-orange trim.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>XS</li><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 450</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Badminton away kit — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+
+            <article class="card kit reveal">
+              <div class="kit__stage">
+                <span class="kit__ghost" aria-hidden="true">★</span>
+                <div class="jersey__shirt" data-num="★" aria-hidden="true" style="background:linear-gradient(158deg,#FFE3AE,#E8B96A 45%,#FF6A1A)"><span class="jersey__stripes"></span></div>
+                <div class="jersey__meta">
+                  <h3 class="jersey__name">Badminton Fan Tee</h3>
+                  <p class="card__text">Golden-orange fan tee — glows across the whole stand.</p>
+                </div>
+              </div>
+              <div class="kit__foot">
+                <div>
+                  <span class="sizes__label">Sizes</span>
+                  <ul class="sizes" aria-label="Available sizes"><li>S</li><li>M</li><li>L</li><li>XL</li><li>2XL</li><li>3XL</li></ul>
+                </div>
+                <p class="jersey__price"><small>Price</small>฿ 320</p>
+                <a class="btn btn--primary" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy the Badminton fan tee — opens the order form in a new tab"><span class="btn__label">Buy</span></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <!-- SIZE CHART -->
     <section class="section">
       <div class="container">
         <p class="eyebrow">Size Guide</p>
         <h2 class="section__title">Find Your <em>Fit</em></h2>
-        <p class="section__lead">XS–3XL, chest 34"–48". Not sure of your size? Ask us on the Contact page.</p>
+        <p class="section__lead">XS–3XL, chest 34"–48". Not sure of your size? Ask us before you order.</p>
 
-        <div class="card reveal" style="margin-top: clamp(28px, 4vw, 44px)">
+        <div class="size-caveat reveal">
+          <span class="size-caveat__mark" aria-hidden="true">◆</span>
+          <p><b>Indicative sizing only.</b> These figures are a rough guide, not confirmed garment measurements — the finished kit may differ. Please <a class="link" href="contact.html">confirm your size with us</a> before placing an order.</p>
+        </div>
+
+        <div class="card reveal" style="margin-top: clamp(20px, 3vw, 30px)">
           <div class="card__body">
             <div class="chart-wrap">
               <table class="chart">
@@ -202,6 +582,21 @@
           <h3 class="card__title">Care</h3>
           <p class="card__text">Cold wash, turn inside out, no tumble dry — keeps the orange bright for longer.</p>
         </article>
+      </div>
+    </section>
+
+    <!-- ORDER CTA -->
+    <section class="section section--tight">
+      <div class="container">
+        <div class="marquee-sign reveal">
+          <span class="marquee-sign__frame" aria-hidden="true"></span>
+          <h2>Ready to <em>Order</em>?</h2>
+          <p>One form, every sport. Pick your kit, your size, and we'll take it from there.</p>
+          <div class="hero__cta">
+            <a class="btn btn--light btn--buy" data-buy href="https://forms.gle/wCzdKGDoCH8tyMch8" target="_blank" rel="noopener noreferrer" aria-label="Buy a kit — opens the order form in a new tab"><span class="btn__label">Buy Your Kit</span></a>
+            <a class="btn btn--ghost" href="contact.html"><span class="btn__label">Ask About Sizing</span></a>
+          </div>
+        </div>
       </div>
     </section>
   </main>

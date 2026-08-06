@@ -13,3 +13,7 @@ Desktop.ini
 # Build / deps
 node_modules/
 .wrangler/
+
+# Pasted design briefs — working notes, not site content
+RESTYLE_PROMPT.md
+UPDATE_PROMPT.md

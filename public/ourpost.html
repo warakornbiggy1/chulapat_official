@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Relaxed CSP: this page only, to allow official Instagram post embeds -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://*.cdninstagram.com https://*.fbcdn.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self' https://www.instagram.com https://platform.instagram.com; frame-src https://www.instagram.com; connect-src 'self' https://www.instagram.com https://graph.instagram.com; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="color-scheme" content="dark" />
   <meta name="description" content="Our Post — the latest drops and announcements from CHULAPAT_OFFICIAL." />
@@ -49,26 +48,26 @@
       </div>
     </section>
 
-    <!-- Live Instagram feed (official embeds) -->
+    <!-- Post cards — self-hosted, built in js/ig-posts.js -->
     <section class="section section--tight">
       <div class="container center">
-        <p class="eyebrow">Live Feed</p>
+        <p class="eyebrow">The Reel</p>
         <h2 class="section__title">Straight From <em>Instagram</em></h2>
-        <p class="section__lead">Real posts pulled live from @chulapat_official.</p>
+        <p class="section__lead">Every drop from @chulapat_official — tap any frame to open the post.</p>
       </div>
 
-      <!-- Embeds render here -->
+      <!-- Cards render here -->
       <div class="container ig-feed" id="ig-feed"></div>
 
-      <!-- Shown only when no post links have been added yet -->
+      <!-- Shown only when no posts have been added yet -->
       <div class="container ig-empty" id="ig-empty">
-        <div class="post-grid" style="margin-top:8px">
-          <div class="post-tile"><div><div class="display">Season Reveal</div><span>Announcement</span></div></div>
-          <div class="post-tile"><div><div class="display">Jersey Drop</div><span>New Kit</span></div></div>
-          <div class="post-tile"><div><div class="display">Cheer Teaser</div><span>Behind the Scenes</span></div></div>
+        <div class="ig-skeletons" aria-hidden="true">
+          <div class="ig-skeleton"></div>
+          <div class="ig-skeleton"></div>
+          <div class="ig-skeleton"></div>
         </div>
         <p style="color:var(--bone-dim);margin-top:24px">
-          Live posts will appear here once post links are added in <code>js/ig-posts.js</code>.
+          Posts will appear here once they're added in <code>js/ig-posts.js</code>.
           Meanwhile, catch everything on
           <a class="link" href="https://www.instagram.com/chulapat_official?igsh=MTFkbWNmbHZudmo4aQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">Instagram</a>.
         </p>
@@ -90,6 +89,5 @@
   <div data-footer></div>
   <script src="js/main.js" defer></script>
   <script src="js/ig-posts.js" defer></script>
-  <script async src="https://www.instagram.com/embed.js"></script>
 </body>
 </html>

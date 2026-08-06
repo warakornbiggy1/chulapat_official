@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-hidden="true" focusable="false">
+  <!-- CHULAPAT_OFFICIAL — Dark Circus sport medallion: Volleyball.
+       Monoline, 64-grid, optical diameter 42. Three panel sweeps meeting the
+       rim, so it reads apart from the basketball at chip size. -->
+  <g fill="none" stroke="#E8B96A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="32" cy="32" r="21"/>
+    <path d="M32 11c-6 14-6 28 4 41.5"/>
+    <path d="M13 24.5c13 4.5 28 3 38.5-6"/>
+    <path d="M17 47c12-6 22-20 24-35.5"/>
+  </g>
+</svg>
