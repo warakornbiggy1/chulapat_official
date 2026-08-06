@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-hidden="true" focusable="false">
+  <!-- CHULAPAT_OFFICIAL — Dark Circus sport medallion: Petanque.
+       Monoline, 64-grid. Two boules and the jack, graded in size so the group
+       carries the same optical mass as the single-ball glyphs. Grooves on the
+       lead boule read as struck metal. -->
+  <g fill="none" stroke="#E8B96A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="24" cy="35" r="14"/>
+    <path d="M11.6 28.5c7 4.2 17.8 4.2 24.8 0" opacity=".55"/>
+    <path d="M11.6 41.5c7-4.2 17.8-4.2 24.8 0" opacity=".55"/>
+    <circle cx="45.5" cy="43.5" r="9.5"/>
+    <circle cx="46.5" cy="18.5" r="4.5"/>
+  </g>
+</svg>

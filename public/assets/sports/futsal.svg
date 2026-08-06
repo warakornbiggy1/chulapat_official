@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-hidden="true" focusable="false">
+  <!-- CHULAPAT_OFFICIAL — Dark Circus sport medallion: Futsal.
+       Monoline, 64-grid, optical diameter 42. Centre pentagon with five spokes
+       to the rim — the classic panel geometry, drawn as line only. -->
+  <g fill="none" stroke="#E8B96A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="32" cy="32" r="21"/>
+    <path d="M32 24l7.6 5.5-2.9 9h-9.4l-2.9-9z"/>
+    <path d="M32 24V11"/>
+    <path d="m39.6 29.5 12.4-4"/>
+    <path d="m36.7 38.5 7.6 10.5"/>
+    <path d="M27.3 38.5 19.7 49"/>
+    <path d="M24.4 29.5 12 25.5"/>
+  </g>
+</svg>

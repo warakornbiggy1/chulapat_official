@@ -1,6 +1,6 @@
 # 🎪 CHULAPAT_OFFICIAL
 
-เว็บไซต์ทีมกีฬาสี ธีม **Dark Circus สีแสด–ดำ** — static website (HTML/CSS/JS ล้วน ไม่มี backend/ฐานข้อมูล)
+เว็บไซต์ทีมกีฬาสี ธีม **Dark Circus — BlackOrange** — static website (HTML/CSS/JS ล้วน ไม่มี backend/ฐานข้อมูล)
 เนื้อหาหลักเป็นภาษาอังกฤษ ส่วนสโลแกนคงภาษาไทย: *"กิติศัพท์เกียงไกรยิ่งใหญ่เลื่องลือ มัจจุราชขานชื่อ เราคือแสดดำ"*
 
 ## หน้าเว็บ
@@ -9,14 +9,22 @@
 | `index.html` | Home (hero + โลโก้ + ไฮไลต์) |
 | `about.html` | About |
 | `members.html` | Members (กรองตามฝ่ายได้) |
-| `jersey.html` | Jersey + ไซซ์ |
-| `ourpost.html` | Our Post (โปสเตอร์ + ลิงก์ IG) |
+| `jersey.html` | Jersey — เลือกกีฬา 6 ชนิด + ไซซ์ + ปุ่ม Buy |
+| `ourpost.html` | Our Post (โปสเตอร์ + การ์ดโพสต์ IG) |
 | `history.html` | History (timeline ปีก่อนๆ) |
 | `contact.html` | Contact + ฟอร์ม + QR Instagram |
 
 ## รูปภาพ (โฟลเดอร์ `assets/`)
 ดึงจาก `chula/` มาย่อขนาดให้เหมาะกับเว็บแล้ว: `logo-mark.png` (โลโก้พื้นใส), `logo-ring.png` (โลโก้วงไฟ),
 `post-coming-soon.jpg` (โปสเตอร์), `ig-qr.jpg` (QR Instagram) — โฟลเดอร์ `chula/` ต้นฉบับเก็บไว้เป็นสำรอง
+
+`assets/sports/*.svg` = ไอคอนกีฬา 6 ชนิด (วาดเป็นเส้น monoline สีทอง) — ถ้ามีโลโก้จริงให้ **เขียนทับไฟล์เดิมชื่อเดิม**
+ได้เลย ไม่ต้องแก้ HTML
+
+## แบรนด์
+ชื่อเรียกอัตลักษณ์ทีมเขียนติดกันคำเดียวเสมอ: **BlackOrange** — คำเดียว ไม่มีวรรค ไม่มีเครื่องหมาย &
+ในหน้าเว็บใช้ `<span class="wordmark">` เพื่อให้มีรอยต่อสี Black|Orange — ส่วนคำว่า "orange" ที่หมายถึง *สี* จริงๆ
+(เช่น "bold orange home kit", ตัวแปร `--orange`) ไม่ต้องเปลี่ยน
 
 ## โซเชียล
 Instagram: **@chulapat_official** — https://www.instagram.com/chulapat_official
@@ -33,6 +41,10 @@ Instagram: **@chulapat_official** — https://www.instagram.com/chulapat_officia
 ## การปรับแก้
 - **สี/ธีม:** แก้ตัวแปรใน `css/styles.css` ส่วน `:root` (เช่น `--orange`, `--ink`)
 - **เมนู / ฟุตเตอร์:** แก้ที่เดียวใน `js/main.js` (ตัวแปร `NAV_LINKS`) แล้วมีผลทุกหน้า
+- **ลิงก์ฟอร์มสั่งซื้อ:** แก้ที่เดียวที่ตัวแปร `ORDER_FORM_URL` ใน `js/main.js` — ทุกปุ่ม `data-buy` จะอัปเดตตาม
+  (ใน HTML ใส่ href จริงไว้ด้วย เผื่อกรณีปิด JS)
+- **โพสต์ IG:** เพิ่มบรรทัดเดียวในอาร์เรย์ `IG_POSTS` ที่ `js/ig-posts.js` (ดูคำอธิบายหัวไฟล์)
+  รูปต้องวางใน `assets/` เท่านั้น เพราะ CSP ตั้งไว้ `img-src 'self'`
 - **สมาชิก / เสื้อ / ประวัติ:** แก้เนื้อหาในไฟล์ HTML ของแต่ละหน้าได้ตรงๆ
 
 ## 🔒 หมายเหตุความปลอดภัย (ทำไว้ให้แล้ว)
