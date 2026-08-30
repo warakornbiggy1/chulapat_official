@@ -41,9 +41,10 @@
 | `assets/apple-touch-icon.png` | ไอคอนบน iOS (ทึบ เพราะ iOS ไม่รองรับพื้นใส) |
 | `assets/og-cover.png` | รูปที่ขึ้นตอนแชร์ลิงก์ใน LINE / Facebook (1200×630) |
 
-> **สำคัญ:** `og:image` ในทุกหน้ายังเป็น path แบบ relative เพราะเว็บยังอยู่บน `workers.dev`
-> ถ้าต่อโดเมนจริงแล้ว ให้เปลี่ยน `og:image` (และเพิ่ม `og:url`) เป็น URL เต็ม เช่น
-> `https://โดเมนของคุณ/assets/og-cover.png` — แก้แค่นี้จุดเดียว
+> **URL ของเว็บจริง:** https://chulapatofficial.pcshsnst.workers.dev
+> ทุกหน้ามี `<link rel="canonical">`, `og:url` และ `og:image` เป็น URL เต็มที่ชี้ไปที่นี่
+> (crawler ของ LINE/Facebook บังคับว่า `og:image` ต้องเป็น URL เต็ม ใช้ relative ไม่ได้)
+> **ถ้าย้ายไปโดเมนอื่นเมื่อไหร่ ต้องแก้ 3 tag นี้ในทั้ง 7 หน้าพร้อมกัน**
 
 ## โซเชียล
 Instagram: **@chulapat_official** — https://www.instagram.com/chulapat_official
