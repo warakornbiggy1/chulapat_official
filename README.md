@@ -29,6 +29,22 @@
 ในหน้าเว็บใช้ `<span class="wordmark">` เพื่อให้มีรอยต่อสี Black|Orange — ส่วนคำว่า "orange" ที่หมายถึง *สี* จริงๆ
 (เช่น "bold orange home kit", ตัวแปร `--orange`) ไม่ต้องเปลี่ยน
 
+## ไอคอน & รูปตอนแชร์ลิงก์
+ทุกไฟล์สร้างจากต้นฉบับเดียวคือ `assets/logo-mark.png` ด้วย `python tools/build-icons.py`
+— **อย่าแก้ไฟล์ผลลัพธ์ตรงๆ** ถ้าจะเปลี่ยนโลโก้ให้ทับไฟล์ต้นฉบับแล้วรันสคริปต์ใหม่
+
+| ไฟล์ | ใช้ตรงไหน |
+|------|-----------|
+| `favicon.ico` | ไอคอนบนแท็บเบราว์เซอร์ (16/32/48 พื้นใส) |
+| `assets/icon-192.png`, `icon-512.png` | ไอคอนตอนเซฟลงหน้าจอมือถือ (PWA) |
+| `assets/icon-maskable-512.png` | ไอคอนแบบ adaptive ของ Android |
+| `assets/apple-touch-icon.png` | ไอคอนบน iOS (ทึบ เพราะ iOS ไม่รองรับพื้นใส) |
+| `assets/og-cover.png` | รูปที่ขึ้นตอนแชร์ลิงก์ใน LINE / Facebook (1200×630) |
+
+> **สำคัญ:** `og:image` ในทุกหน้ายังเป็น path แบบ relative เพราะเว็บยังอยู่บน `workers.dev`
+> ถ้าต่อโดเมนจริงแล้ว ให้เปลี่ยน `og:image` (และเพิ่ม `og:url`) เป็น URL เต็ม เช่น
+> `https://โดเมนของคุณ/assets/og-cover.png` — แก้แค่นี้จุดเดียว
+
 ## โซเชียล
 Instagram: **@chulapat_official** — https://www.instagram.com/chulapat_official
 
@@ -59,6 +75,7 @@ Instagram: **@chulapat_official** — https://www.instagram.com/chulapat_officia
 |---------|--------|
 | `tools/build-kit-images.py` | แปลงรูปต้นฉบับใน `shirt-model/` → `public/assets/kit/*.webp` (12 MB → ~0.9 MB) |
 | `tools/build-ig-posts.py` | แปลงไฟล์ export จาก Instagram → `public/assets/posts/*.webp` + อาร์เรย์ `IG_POSTS` |
+| `tools/build-icons.py` | สร้างไอคอนทั้งชุดจาก `assets/logo-mark.png` (favicon, PWA, apple-touch, รูปแชร์ลิงก์) |
 
 > `shirt-model/` คือรูปต้นฉบับความละเอียดสูง — **ไม่ได้เก็บใน git** (อยู่ใน `.gitignore` เพราะใหญ่ 12 MB)
 > เก็บไว้ในเครื่อง/ไดรฟ์ของทีม ถ้าจะสร้างรูปใหม่ต้องมีโฟลเดอร์นี้ก่อน
