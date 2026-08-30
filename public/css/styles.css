@@ -1623,20 +1623,22 @@ em, .serif {
    screen would keep the sky and erase the product. Same result, different
    mechanism: four layers, one job each. */
 .kit-shot--model {
-  /* 1 · GEOMETRY ONLY. Kills the left/right edges and all four corners so no
-     rectangle survives anywhere. Deliberately wider (126%) and taller (108%)
-     than the box and centred low (54%): in all six frames the subjects run
-     edge to edge and their heads sit in the top 5-35%, so a closest-side
-     circle would crop the models rather than the background. The vertical
-     extremes are left to the scrim, because cropping them would behead the
-     wearers. */
-  --dissolve: radial-gradient(126% 108% at 50% 54%,
-                #000 44%,
-                rgba(0, 0, 0, 0.84) 66%,
-                rgba(0, 0, 0, 0.36) 84%,
-                transparent 98%);
-  --veil: 1;   /* ink-scrim strength, trimmed per frame below */
-  --lift: 1;   /* brightness trim, per frame below */
+  /* 1 · GEOMETRY. The horizontal radius must stay under half the box or the
+     ramp never reaches transparent before the element clips it — the first
+     version was 126% wide (a 63% radius) and left the left and right edges
+     43% opaque, which is precisely the pasted-on rectangle this exists to
+     avoid. 98% wide is a 49% radius, so the side mid-points sit at 1.02 of
+     the gradient's own radius: past the last stop, genuinely transparent.
+     124% tall deliberately overshoots, because the subjects' heads sit in the
+     top 5-35% of every frame and a circle would crop them; the scrim below
+     closes the top and bottom instead. */
+  --dissolve: radial-gradient(98% 124% at 50% 50%,
+                #000 34%,
+                rgba(0, 0, 0, 0.92) 56%,
+                rgba(0, 0, 0, 0.58) 76%,
+                rgba(0, 0, 0, 0.20) 90%,
+                transparent 100%);
+  --lift: 1;   /* per-frame exposure trim, set by the modifiers below */
 }
 /* 2 · TONE. brightness() pulls the frame down; contrast() then pivots about
    0.5, which — applied AFTER the pull-down — crushes the mid-grey court (the
@@ -1674,7 +1676,9 @@ em, .serif {
    its own; where it covers the photo it darkens toward the ground. On a
    #050304 page "darken to the ground" and "mask to zero alpha" are the same
    operation seen from two sides, which is why one gradient buys both the sky
-   suppression and the top/bottom edge dissolve. The profile is measured, not
+   suppression and the top/bottom edge dissolve. It reaches FULL opacity at 0%
+   and 100%, which is what finishes the top and bottom edges the taller-than-
+   the-box mask deliberately leaves open. The profile is measured, not
    guessed: heaviest at 0-24% (band means 143-193 across five of the six
    frames), lightest at 46-72%, which is exactly where the garment sits in all
    six. It reads as a spotlight held on the kit, with the sky above it gone.
@@ -1683,22 +1687,28 @@ em, .serif {
    instead of dissolving with the background they are being faded into. */
 .kit-shot--model::after {
   z-index: 2;
-  opacity: var(--veil);
   background: linear-gradient(180deg,
-    rgba(5, 3, 4, 0.95) 0%,
-    rgba(5, 3, 4, 0.80) 10%,
-    rgba(5, 3, 4, 0.46) 24%,
-    rgba(5, 3, 4, 0.20) 40%,
+    rgba(5, 3, 4, 1)    0%,
+    rgba(5, 3, 4, 0.93) 6%,
+    rgba(5, 3, 4, 0.68) 16%,
+    rgba(5, 3, 4, 0.40) 28%,
+    rgba(5, 3, 4, 0.19) 42%,
     rgba(5, 3, 4, 0.08) 56%,
     rgba(5, 3, 4, 0.12) 70%,
-    rgba(5, 3, 4, 0.42) 86%,
-    rgba(5, 3, 4, 0.86) 100%);
+    rgba(5, 3, 4, 0.36) 84%,
+    rgba(5, 3, 4, 0.72) 93%,
+    rgba(5, 3, 4, 1)    100%);
 }
-/* Per-frame trims. Basketball's sky is a small blown patch rather than a field;
-   futsal was shot at dusk and already sits inside the ink ramp end to end, so
-   the standard veil would erase it. */
-.kit-shot--model.kit-shot--mid { --veil: 0.80; --lift: 1.40; }
-.kit-shot--model.kit-shot--dusk { --veil: 0.72; --lift: 1.55; }
+/* Per-frame exposure. Six photographs, three lighting conditions: one global
+   value would either leave badminton's sky glowing or lose futsal entirely.
+   Measured against the composite, every frame lands at sky <= 42 and faces
+   61-86 luminance on the #050304 ground.
+     --mid    basketball, shot flat under a small blown sky patch
+     --dusk   futsal, shot after sunset and already inside the ink ramp
+     --bright table tennis and badminton, the two brightest skies */
+.kit-shot--model.kit-shot--mid { --lift: 1.75; }
+.kit-shot--model.kit-shot--dusk { --lift: 1.85; }
+.kit-shot--model.kit-shot--bright { --lift: 0.94; }
 
 /* ---------------------------------------------------------
    17d · Jersey — the product shot
@@ -1786,7 +1796,7 @@ em, .serif {
 .kit-price {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
   line-height: 1;
   letter-spacing: 0.01em;
   color: var(--gold-hi);
@@ -1804,15 +1814,47 @@ em, .serif {
   text-transform: uppercase;
   color: var(--bone-faint);
 }
-.kit-price__bulk {
-  display: block;
-  margin-top: 9px;
+/* The offer — three-for, or the basketball pair — is the reason to buy, so it
+   is the largest thing in the block and .kit-price steps down to make room.
+   One component for both, so a multi-buy and a bundle read identically. */
+.kit-deal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  margin: 0 0 clamp(18px, 2.4vw, 26px);
+  padding: clamp(14px, 1.8vw, 20px) clamp(18px, 2.2vw, 26px);
+  border-radius: var(--r-md);
+  background: rgba(255, 106, 26, 0.10);
+  box-shadow: inset 0 0 0 1px var(--hair-flame);
+}
+.kit-deal__label {
+  flex: 1 1 100%;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--flame-hi);
+}
+.kit-deal__price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  /* Deliberately clear of .kit-price's clamp(1.4rem, 2.4vw, 2rem) at every
+     viewport — if the two ever converge the hierarchy stops reading. */
+  font-size: clamp(2.6rem, 4.6vw, 3.9rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  color: var(--flame-hi);
+  text-shadow: 0 0 34px rgba(255, 106, 26, 0.45);
+  font-variant-numeric: tabular-nums;
+}
+.kit-deal__save {
   font-family: var(--font-body);
   font-size: var(--t-xs);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--gold);
-  text-shadow: none;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--gold-hi);
 }
 .kit-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .kit-actions .btn { flex: 1 1 170px; }
@@ -1841,12 +1883,6 @@ em, .serif {
   color: var(--flame-hi);
 }
 .size-caveat b { color: var(--gold-hi); font-weight: 600; }
-/* The basketball note is an offer, not a warning — gold rather than flame. */
-.size-caveat--deal {
-  background: rgba(232, 185, 106, 0.08);
-  box-shadow: inset 0 0 0 1px var(--hair-strong);
-}
-.size-caveat--deal .size-caveat__mark { color: var(--gold-hi); }
 
 /* ---------------------------------------------------------
    18 · About — values & manifesto
@@ -2260,7 +2296,9 @@ em, .serif {
   gap: clamp(18px, 2.6vw, 26px);
   padding: clamp(26px, 3.4vw, 40px);
 }
-.ticket--qr .ticket__stub { padding: 14px; }
+/* The QR artwork is its own white card edge to edge, so the stub's warm bone
+   (#F6EDE2) would show as a seam around a cool panel. Match it. */
+.ticket--qr .ticket__stub { background: #fff; padding: 12px; }
 .ticket--qr .ticket__stub img { width: min(300px, 62vw); }
 
 /* ---------------------------------------------------------
@@ -2433,6 +2471,7 @@ em, .serif {
   .grid--2, .grid--3 { grid-template-columns: 1fr; }
   .kit-shot { max-width: 400px; }
   .kit-prices { gap: 18px; }
+  .kit-deal { padding: 14px 16px; }
   .kit-actions .btn { flex: 1 1 100%; }
   /* Four chained filters on a 1080px bitmap, six times over, is the most
      expensive thing on this page. Halve it where the GPU is weakest. */
