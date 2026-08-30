@@ -1103,7 +1103,7 @@ em, .serif {
    --------------------------------------------------------- */
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   border-top: 1px solid var(--hair);
   border-bottom: 1px solid var(--hair);
 }
@@ -1581,156 +1581,245 @@ em, .serif {
 .sport-head__actions { display: flex; gap: 10px; flex-wrap: wrap; }
 .sport-head__actions .btn { padding: 12px 24px; }
 
-.kit-grid {
+/* ---------------------------------------------------------
+   17c · Jersey — the product row
+   One row per sport: the model photograph on one side, the product cutout and
+   its price on the other, alternating side to side down the page.
+   --------------------------------------------------------- */
+.kit-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: clamp(14px, 1.7vw, 22px);
+  /* minmax(0,·) not 1fr: grid items default to min-width:auto, and an image
+     column will otherwise refuse to shrink and blow the container out. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.04fr);
+  grid-template-areas: "model product";
+  gap: clamp(22px, 4vw, 62px);
+  align-items: center;
 }
-.kit-grid > .kit--hero { grid-column: span 2; }
+/* The flip is one property, which is what keeps the responsive collapse to two
+   lines. A modifier rather than :nth-of-type(even) because sports are a list
+   someone will reorder, and parity that lives in the stylesheet is invisible
+   from the markup. DOM order stays model-then-product on every row, so reading
+   order never zig-zags — and each row holds exactly one focusable element. */
+.kit-row--flip { grid-template-areas: "product model"; }
+.kit-row__model { grid-area: model; }
+.kit-row__product { grid-area: product; }
 
-.kit { display: flex; flex-direction: column; }
-.kit__stage {
+.kit-shot {
   position: relative;
-  display: grid;
-  place-items: center;
-  padding: clamp(30px, 4vw, 54px) 20px clamp(24px, 3vw, 40px);
+  isolation: isolate;    /* confines the ::before blend group */
+  aspect-ratio: 1;       /* box is reserved before the image decodes */
+  max-width: 540px;      /* the 1080px source is then exactly 2x DPR */
+  margin: 0 auto;        /* <figure> defaults to margin:1em 40px — reset it */
   overflow: hidden;
-  background: radial-gradient(70% 60% at 50% 24%, rgba(255, 106, 26, 0.17), transparent 66%);
 }
-/* Oversized ghost numeral bleeding off the corner — the same device as the
-   numbered feature cards on the home page, so the two pages read as one system. */
-.kit__ghost {
-  position: absolute;
-  right: -0.04em;
-  bottom: -0.26em;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(5.5rem, 12vw, 9rem);
-  line-height: 0.72;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(232, 185, 106, 0.11);
-  pointer-events: none;
-  user-select: none;
-  transition: -webkit-text-stroke-color var(--dur-4) var(--ease);
-}
-.card:hover .kit__ghost { -webkit-text-stroke-color: rgba(255, 106, 26, 0.26); }
-.kit--hero .kit__ghost { font-size: clamp(9rem, 19vw, 16rem); }
-.kit--hero .kit__stage { padding-block: clamp(44px, 6vw, 84px); }
+.kit-shot__img { display: block; width: 100%; height: 100%; }
+.kit-shot--model .kit-shot__img { object-fit: cover; }
+.kit-shot--product .kit-shot__img { object-fit: contain; }
 
-.jersey__shirt {
-  position: relative;
-  width: clamp(150px, 20vw, 210px);
-  aspect-ratio: 19 / 21;
-  background: linear-gradient(158deg, var(--flame-hi), var(--flame) 40%, var(--flame-lo));
-  clip-path: polygon(30% 0, 70% 0, 78% 8%, 100% 20%, 92% 40%, 82% 34%, 82% 100%, 18% 100%, 18% 34%, 8% 40%, 0 20%, 22% 8%);
-  filter: drop-shadow(0 22px 34px rgba(179, 40, 6, 0.55));
-  transition: transform var(--dur-4) var(--ease);
+/* ---- The model shot: a photograph dissolved into the ink ground ----
+   The home page does this to the emblem with mix-blend-mode:screen, which
+   works there because the source is bright art on a dark backdrop. These are
+   the inverse — a black kit under a sky measuring 193 mean luminance — so
+   screen would keep the sky and erase the product. Same result, different
+   mechanism: four layers, one job each. */
+.kit-shot--model {
+  /* 1 · GEOMETRY ONLY. Kills the left/right edges and all four corners so no
+     rectangle survives anywhere. Deliberately wider (126%) and taller (108%)
+     than the box and centred low (54%): in all six frames the subjects run
+     edge to edge and their heads sit in the top 5-35%, so a closest-side
+     circle would crop the models rather than the background. The vertical
+     extremes are left to the scrim, because cropping them would behead the
+     wearers. */
+  --dissolve: radial-gradient(126% 108% at 50% 54%,
+                #000 44%,
+                rgba(0, 0, 0, 0.84) 66%,
+                rgba(0, 0, 0, 0.36) 84%,
+                transparent 98%);
+  --veil: 1;   /* ink-scrim strength, trimmed per frame below */
+  --lift: 1;   /* brightness trim, per frame below */
 }
-.kit--hero .jersey__shirt { width: clamp(190px, 24vw, 280px); }
-.card:hover .jersey__shirt { transform: translateY(-8px) scale(1.02); }
-
-/* Dramatic lighting: key light top-left, deep falloff bottom-right */
-.jersey__shirt::after {
+/* 2 · TONE. brightness() pulls the frame down; contrast() then pivots about
+   0.5, which — applied AFTER the pull-down — crushes the mid-grey court (the
+   largest area in every frame) toward black while widening the sky-to-face
+   gap. saturate() takes the trees and sky far enough out of gamut that the
+   photo stops fighting flame-and-gold. */
+.kit-shot--model .kit-shot__img {
+  -webkit-mask-image: var(--dissolve);
+          mask-image: var(--dissolve);
+  filter: saturate(0.58) brightness(calc(0.80 * var(--lift))) contrast(1.22);
+}
+.kit-shot--model::before,
+.kit-shot--model::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(64% 46% at 30% 12%, rgba(255, 255, 255, 0.3), transparent 62%),
-    linear-gradient(200deg, transparent 40%, rgba(0, 0, 0, 0.5));
+  pointer-events: none;
 }
-.jersey__shirt::before {
-  content: attr(data-num);
-  position: absolute;
-  inset: 22% 0 0;
+/* 3 · GRADE. A token-coloured duotone rather than a filter hack:
+   mix-blend-mode:color substitutes hue and saturation while preserving the
+   photo's own luminosity, so the frame is graded INTO BlackOrange rather than
+   tinted over it — it cannot brighten the sky or darken a face. It carries the
+   same --dissolve, or it paints a rust rectangle in the corners the photograph
+   has already faded out of. */
+.kit-shot--model::before {
   z-index: 1;
-  display: grid;
-  place-items: center;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(2.6rem, 5vw, 4.4rem);
-  letter-spacing: -0.03em;
-  color: rgba(12, 6, 6, 0.38);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.12);
+  background: linear-gradient(168deg, var(--flame) 0%, var(--ember) 60%, #46180C 100%);
+  mix-blend-mode: color;
+  opacity: 0.34;
+  -webkit-mask-image: var(--dissolve);
+          mask-image: var(--dissolve);
 }
-.jersey__stripes {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(90deg, transparent 0 15px, rgba(0, 0, 0, 0.13) 15px 18px);
+/* 4 · THE INK SCRIM, the layer doing the most work. Painted flat in the page
+   ground colour, so where it covers ink it is invisible and needs no mask of
+   its own; where it covers the photo it darkens toward the ground. On a
+   #050304 page "darken to the ground" and "mask to zero alpha" are the same
+   operation seen from two sides, which is why one gradient buys both the sky
+   suppression and the top/bottom edge dissolve. The profile is measured, not
+   guessed: heaviest at 0-24% (band means 143-193 across five of the six
+   frames), lightest at 46-72%, which is exactly where the garment sits in all
+   six. It reads as a spotlight held on the kit, with the sky above it gone.
+   Tuned against a composite of all six frames: the sky lands at 8-36 luminance
+   against the #050304 ground, the faces at 61-91, so the wearers stay legible
+   instead of dissolving with the background they are being faded into. */
+.kit-shot--model::after {
+  z-index: 2;
+  opacity: var(--veil);
+  background: linear-gradient(180deg,
+    rgba(5, 3, 4, 0.95) 0%,
+    rgba(5, 3, 4, 0.80) 10%,
+    rgba(5, 3, 4, 0.46) 24%,
+    rgba(5, 3, 4, 0.20) 40%,
+    rgba(5, 3, 4, 0.08) 56%,
+    rgba(5, 3, 4, 0.12) 70%,
+    rgba(5, 3, 4, 0.42) 86%,
+    rgba(5, 3, 4, 0.86) 100%);
 }
+/* Per-frame trims. Basketball's sky is a small blown patch rather than a field;
+   futsal was shot at dusk and already sits inside the ink ramp end to end, so
+   the standard veil would erase it. */
+.kit-shot--model.kit-shot--mid { --veil: 0.80; --lift: 1.40; }
+.kit-shot--model.kit-shot--dusk { --veil: 0.72; --lift: 1.55; }
 
-.jersey__meta {
+/* ---------------------------------------------------------
+   17d · Jersey — the product shot
+   Black kit on a black page. Everything here manufactures separation without
+   drawing a box around it: the page's argument is that surfaces are lit rather
+   than outlined, so a plate or a border would be the easy wrong answer.
+   --------------------------------------------------------- */
+.kit-shot--product {
+  /* A whisper of lifted ground, so the garment has something to be black
+     against. Same satin language as .card, minus the edge. */
+  background: radial-gradient(58% 50% at 50% 44%, rgba(255, 236, 214, 0.05), transparent 72%);
+}
+/* Flame bloom — the .emblem-block__glow device, flattened from a circle to an
+   ellipse and pushed down so it sits behind the torso instead of haloing the
+   shoulders. */
+.kit-shot--product::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 8%; right: 8%; top: 14%; bottom: 10%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side,
+                rgba(255, 106, 26, 0.34),
+                rgba(179, 40, 6, 0.14) 58%,
+                transparent 76%);
+  filter: blur(40px);
+  opacity: 0.88;
+  transition: opacity var(--dur-4) var(--ease), transform var(--dur-4) var(--ease);
+}
+/* Contact shadow. The cutouts carry ~11% empty canvas below the hem, which is
+   exactly the room this needs — it makes the garment stand rather than float. */
+.kit-shot--product::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  left: 17%; right: 17%; bottom: 4%;
+  height: 8%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.85), transparent 78%);
+  filter: blur(10px);
+}
+.kit-shot--product .kit-shot__img {
   position: relative;
   z-index: 1;
-  margin-top: clamp(18px, 2.4vw, 28px);
-  text-align: center;
+  /* The rim is the whole trick. drop-shadow() rasterises against the alpha
+     channel, so a zero-offset shadow traces the garment's silhouette exactly —
+     a 1px warm edge separates black from black along every contour, including
+     between the two hanging halves and between basketball's jersey and shorts,
+     with no plate and no rectangle. Warm bone rather than white: it reads as
+     marquee light and also works on the rust petanque polo, which cold white
+     would not. Shadow 2 is the falloff into the bloom, shadow 3 the cast. */
+  filter:
+    brightness(1.05) contrast(1.06) saturate(1.10)
+    drop-shadow(0 0 1px rgba(255, 227, 174, 0.90))
+    drop-shadow(0 0 12px rgba(255, 145, 71, 0.50))
+    drop-shadow(0 30px 42px rgba(0, 0, 0, 0.70));
+  transition: transform var(--dur-4) var(--ease);
 }
-.jersey__name {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(1.25rem, 2.1vw, 1.75rem);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--bone);
-  margin-bottom: 0.3em;
+/* Petanque's polo is rust, not black — an orange bloom behind an orange
+   garment removes the separation it exists to create. */
+.kit-shot--product.is-warm::before {
+  background: radial-gradient(closest-side,
+                rgba(179, 40, 6, 0.30),
+                rgba(70, 24, 12, 0.16) 58%,
+                transparent 76%);
 }
-.jersey__price {
+/* Life on approach, rather than six blurred layers animating forever. */
+.kit-row:hover .kit-shot--product .kit-shot__img,
+.kit-row:focus-within .kit-shot--product .kit-shot__img { transform: translateY(-8px); }
+.kit-row:hover .kit-shot--product::before,
+.kit-row:focus-within .kit-shot--product::before { opacity: 1; transform: scale(1.05); }
+
+/* ---- Price and Buy ---- */
+.kit-buy { margin-top: clamp(18px, 2.6vw, 30px); }
+/* A flex list so one price sits alone and basketball's two sit side by side,
+   with no separate variant. */
+.kit-prices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(16px, 2.4vw, 34px);
+  margin: 0 0 clamp(16px, 2.2vw, 24px);
+  padding: 0;
+  list-style: none;
+}
+.kit-price {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  line-height: 1;
   letter-spacing: 0.01em;
   color: var(--gold-hi);
   text-shadow: 0 0 26px rgba(232, 185, 106, 0.4);
+  font-variant-numeric: tabular-nums;
   margin: 0;
-  line-height: 1;
 }
-.jersey__price small {
+.kit-price small {
   display: block;
+  margin-bottom: 7px;
   font-family: var(--font-body);
-  font-size: 0.55rem;
+  font-size: 0.58rem;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--bone-faint);
-  margin-bottom: 6px;
 }
-
-.kit__foot {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  padding: clamp(18px, 2.2vw, 26px) clamp(20px, 2.4vw, 30px) clamp(20px, 2.4vw, 30px);
-  border-top: 1px solid var(--hair);
-}
-.kit__foot .btn { flex: 1 1 150px; }
-
-.sizes { display: flex; gap: 6px; flex-wrap: wrap; margin: 0 0 4px; padding: 0; list-style: none; }
-.sizes li {
-  min-width: 34px;
-  padding: 5px 8px;
-  text-align: center;
-  border-radius: var(--r-sm);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--bone-dim);
-  background: rgba(255, 236, 214, 0.03);
-  box-shadow: inset 0 0 0 1px var(--hair);
-}
-.sizes__label {
+.kit-price__bulk {
   display: block;
-  margin-bottom: 8px;
-  font-size: 0.58rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--bone-faint);
+  margin-top: 9px;
+  font-family: var(--font-body);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--gold);
+  text-shadow: none;
 }
+.kit-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.kit-actions .btn { flex: 1 1 170px; }
 
-/* Sizing caveat — the figures in the chart are indicative, and this page now
-   sends people straight to a live order form, so the qualifier has to carry
-   real visual weight rather than hide in the caption. */
+/* Sizing caveat — this page sends people straight to a live order form and no
+   longer publishes a chart, so the qualifier has to carry real visual weight
+   rather than hide in a caption. */
 .size-caveat {
   display: flex;
   gap: 14px;
@@ -1752,153 +1841,15 @@ em, .serif {
   color: var(--flame-hi);
 }
 .size-caveat b { color: var(--gold-hi); font-weight: 600; }
-
-/* Refined size chart */
-.chart-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-.chart {
-  width: 100%;
-  min-width: 520px;
-  border-collapse: collapse;
-  font-variant-numeric: tabular-nums;
+/* The basketball note is an offer, not a warning — gold rather than flame. */
+.size-caveat--deal {
+  background: rgba(232, 185, 106, 0.08);
+  box-shadow: inset 0 0 0 1px var(--hair-strong);
 }
-.chart caption {
-  text-align: left;
-  padding-bottom: 18px;
-  color: var(--bone-dim);
-  font-size: var(--t-sm);
-}
-.chart th, .chart td {
-  padding: 15px 18px;
-  text-align: left;
-  border-bottom: 1px solid var(--hair);
-}
-.chart thead th {
-  font-family: var(--font-body);
-  font-size: var(--t-micro);
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border-bottom-color: var(--hair-strong);
-}
-.chart tbody th {
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.2rem;
-  letter-spacing: 0.04em;
-  color: var(--flame);
-  width: 1%;
-  white-space: nowrap;
-}
-.chart td { color: var(--bone-2); font-size: var(--t-sm); }
-.chart tbody tr { transition: background var(--dur-1) var(--ease-soft); }
-.chart tbody tr:hover { background: rgba(255, 106, 26, 0.05); }
-.chart tbody tr:last-child th, .chart tbody tr:last-child td { border-bottom: 0; }
+.size-caveat--deal .size-caveat__mark { color: var(--gold-hi); }
 
 /* ---------------------------------------------------------
-   18 · Timeline
-   --------------------------------------------------------- */
-.timeline {
-  position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 0 0 clamp(34px, 6vw, 74px);
-  list-style: none;
-}
-.timeline::before {
-  content: "";
-  position: absolute;
-  left: clamp(7px, 1.4vw, 17px);
-  top: 10px;
-  bottom: 10px;
-  width: 1px;
-  background: linear-gradient(var(--gold), var(--flame) 40%, rgba(255, 106, 26, 0.15) 88%, transparent);
-  box-shadow: 0 0 18px rgba(255, 106, 26, 0.4);
-}
-.tl-item { position: relative; padding-bottom: clamp(34px, 5vw, 62px); }
-.tl-item:last-child { padding-bottom: 0; }
-.tl-item::before {
-  content: "";
-  position: absolute;
-  left: calc(-1 * clamp(34px, 6vw, 74px) + clamp(3px, 1vw, 13px));
-  top: clamp(14px, 2vw, 26px);
-  width: 9px; height: 9px;
-  border-radius: 50%;
-  background: var(--gold-hi);
-  box-shadow: 0 0 0 4px var(--ink-900), 0 0 18px 2px rgba(255, 106, 26, 0.85);
-}
-.tl-year {
-  position: absolute;
-  display: block;
-  left: 0;
-  top: -0.14em;
-  z-index: 0;
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(4.5rem, 11vw, 9rem);
-  line-height: 0.8;
-  letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(232, 185, 106, 0.14);
-  pointer-events: none;
-  user-select: none;
-  transition: -webkit-text-stroke-color var(--dur-4) var(--ease);
-}
-.tl-item:hover .tl-year { -webkit-text-stroke-color: rgba(255, 106, 26, 0.32); }
-.tl-year__tag {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  color: var(--gold);
-  -webkit-text-stroke: 0;
-  margin-bottom: 6px;
-}
-.tl-card {
-  position: relative;
-  z-index: 1;
-  margin-left: clamp(0px, 6vw, 96px);
-  padding: clamp(22px, 2.6vw, 32px);
-}
-.tl-card h3 {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: var(--t-d4);
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  color: var(--bone);
-}
-.tl-medals {
-  display: flex;
-  gap: clamp(14px, 2vw, 28px);
-  flex-wrap: wrap;
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid var(--hair);
-}
-.tl-medals span {
-  font-size: var(--t-micro);
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--bone-faint);
-}
-.tl-medals b {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.65rem;
-  line-height: 1;
-  letter-spacing: 0;
-  color: var(--gold);
-  margin-bottom: 3px;
-}
-.tl-medals span:first-child b { color: var(--flame); }
-.tl-medals__note { color: var(--gold); }
-
-/* ---------------------------------------------------------
-   19 · About — values & manifesto
+   18 · About — values & manifesto
    --------------------------------------------------------- */
 .value { display: flex; gap: clamp(16px, 2vw, 26px); align-items: flex-start; }
 .value__no {
@@ -1965,7 +1916,7 @@ em, .serif {
 }
 
 /* ---------------------------------------------------------
-   20 · Our Post
+   19 · Our Post
    --------------------------------------------------------- */
 .post-hero {
   display: grid;
@@ -2203,100 +2154,16 @@ em, .serif {
 }
 
 /* ---------------------------------------------------------
-   21 · Contact
+   20 · Contact
    --------------------------------------------------------- */
+/* Was 1.05fr 0.95fr when the left half held a message form. With the form gone
+   the QR ticket is the second subject and takes the wider half. */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-columns: 0.95fr 1.05fr;
   gap: clamp(28px, 4vw, 56px);
-  align-items: start;
+  align-items: center;
 }
-
-.form-card {
-  padding: clamp(24px, 3vw, 42px);
-  background: rgba(255, 236, 214, 0.028);
-  -webkit-backdrop-filter: blur(22px) saturate(150%);
-  backdrop-filter: blur(22px) saturate(150%);
-}
-.form-card .card__title { font-size: var(--t-d3); margin-bottom: 26px; }
-
-/* Floating-label fields */
-.field { position: relative; margin-bottom: 22px; }
-.field input,
-.field textarea,
-.field select {
-  width: 100%;
-  padding: 24px 16px 11px;
-  border: 0;
-  border-radius: var(--r-md);
-  background: rgba(5, 3, 4, 0.55);
-  box-shadow: inset 0 0 0 1px var(--hair);
-  color: var(--bone);
-  font-family: var(--font-body);
-  font-size: var(--t-body);
-  line-height: 1.5;
-  transition: box-shadow var(--dur-2) var(--ease), background var(--dur-2) var(--ease);
-}
-.field select { padding-top: 22px; appearance: none; cursor: pointer; }
-.field textarea { resize: vertical; min-height: 138px; padding-top: 26px; }
-
-.field label {
-  position: absolute;
-  left: 17px;
-  top: 17px;
-  font-size: var(--t-sm);
-  font-weight: 500;
-  color: var(--bone-faint);
-  pointer-events: none;
-  transform-origin: 0 0;
-  transition: transform var(--dur-2) var(--ease), color var(--dur-2) var(--ease);
-}
-.field input:focus + label,
-.field textarea:focus + label,
-.field select + label,
-.field input:not(:placeholder-shown) + label,
-.field textarea:not(:placeholder-shown) + label {
-  transform: translateY(-11px) scale(0.72);
-  color: var(--gold);
-}
-.field input:focus,
-.field textarea:focus,
-.field select:focus {
-  outline: none;
-  background: rgba(5, 3, 4, 0.8);
-  box-shadow: inset 0 0 0 1px var(--gold), 0 0 0 4px rgba(232, 185, 106, 0.13);
-}
-/* placeholder is only a floating-label trigger — keep it invisible */
-.field input::placeholder, .field textarea::placeholder { color: transparent; }
-
-.field__arrow {
-  position: absolute;
-  right: 18px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--gold);
-  pointer-events: none;
-  font-size: 0.7rem;
-}
-.field__error {
-  display: block;
-  margin-top: 7px;
-  min-height: 1.1em;
-  font-size: var(--t-xs);
-  color: var(--danger);
-}
-
-.form-note {
-  display: none;
-  margin-top: 16px;
-  padding: 16px 18px;
-  border-radius: var(--r-md);
-  background: rgba(88, 216, 154, 0.09);
-  box-shadow: inset 0 0 0 1px rgba(88, 216, 154, 0.32);
-  color: var(--success);
-  font-size: var(--t-sm);
-}
-.form-note.is-visible { display: block; }
 
 .info-list { list-style: none; padding: 0; margin: 0; }
 .info-list li {
@@ -2324,7 +2191,7 @@ em, .serif {
   color: var(--bone-faint);
   margin-bottom: 4px;
 }
-.info-list span { color: var(--bone); font-size: var(--t-sm); }
+.info-list span, .info-list a { color: var(--bone); font-size: var(--t-sm); }
 
 .socials { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
 
@@ -2383,8 +2250,21 @@ em, .serif {
 }
 .ticket p { color: var(--bone-dim); font-size: var(--t-xs); margin: 0; }
 
+/* The ticket stops being a footnote beside a form and becomes the page's second
+   subject: stacked, centred, with the QR at a size you can actually scan off
+   the screen. 104px was a thumbnail; the source is 1160x1148, so even the top
+   of this clamp stays under 1x. */
+.ticket--qr {
+  flex-direction: column;
+  text-align: center;
+  gap: clamp(18px, 2.6vw, 26px);
+  padding: clamp(26px, 3.4vw, 40px);
+}
+.ticket--qr .ticket__stub { padding: 14px; }
+.ticket--qr .ticket__stub img { width: min(300px, 62vw); }
+
 /* ---------------------------------------------------------
-   22 · Footer
+   21 · Footer
    --------------------------------------------------------- */
 .footer {
   position: relative;
@@ -2467,7 +2347,7 @@ em, .serif {
 .footer__bottom span:last-child { letter-spacing: 0.16em; text-transform: uppercase; }
 
 /* ---------------------------------------------------------
-   23 · Reveal
+   22 · Reveal
    --------------------------------------------------------- */
 .reveal {
   opacity: 0;
@@ -2479,7 +2359,7 @@ em, .serif {
 .reveal.is-in { opacity: 1; transform: none; }
 
 /* ---------------------------------------------------------
-   24 · Responsive
+   23 · Responsive
    --------------------------------------------------------- */
 @media (max-width: 1080px) {
   .roster { grid-template-columns: repeat(3, 1fr); }
@@ -2491,13 +2371,18 @@ em, .serif {
   .ig-feed, .ig-skeletons { grid-template-columns: repeat(2, 1fr); }
   .editorial { grid-template-columns: 1fr; }
   .editorial > .feature--lead { grid-row: auto; }
-  .kit-grid { grid-template-columns: repeat(2, 1fr); }
-  .kit-grid > .kit--hero { grid-column: span 2; }
+  /* One column. Because the flip is a single grid-template-areas property,
+     both variants collapse with the same two lines and cannot drift apart.
+     Model first on every row — that is also the DOM order. */
+  .kit-row, .kit-row--flip {
+    grid-template-columns: 1fr;
+    grid-template-areas: "model" "product";
+  }
+  .kit-shot { max-width: 520px; }
   .post-hero { grid-template-columns: 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .grid--4 { grid-template-columns: repeat(2, 1fr); }
   .grid--3 { grid-template-columns: repeat(2, 1fr); }
-  .tl-card { margin-left: clamp(0px, 9vw, 70px); }
 }
 
 @media (max-width: 860px) {
@@ -2528,17 +2413,8 @@ em, .serif {
 
 @media (max-width: 720px) {
   .roster { grid-template-columns: repeat(2, 1fr); }
-  .stats { grid-template-columns: repeat(2, 1fr); }
-  .stat:nth-child(3)::before, .stat:nth-child(-n+2)::before { }
-  .stat:nth-child(3) { border-top: 1px solid var(--hair); }
-  .stat:nth-child(4) { border-top: 1px solid var(--hair); }
-  .stat:nth-child(3)::before { display: none; }
   .footer__grid { grid-template-columns: 1fr 1fr; }
   .footer__grid > :first-child { grid-column: 1 / -1; }
-  .tl-card { margin-left: 0; }
-  /* The outline year stops being a background layer and becomes a heading. */
-  .tl-year { position: static; display: block; margin-bottom: 8px; font-size: clamp(3.4rem, 16vw, 6rem); }
-  .tl-year__tag { display: none; }
 }
 
 @media (max-width: 560px) {
@@ -2555,13 +2431,21 @@ em, .serif {
   .sport-head__actions { width: 100%; }
   .sport-head__actions .btn { flex: 1 1 140px; }
   .grid--2, .grid--3 { grid-template-columns: 1fr; }
-  .kit-grid { grid-template-columns: 1fr; }
-  .kit-grid > .kit--hero { grid-column: auto; }
+  .kit-shot { max-width: 400px; }
+  .kit-prices { gap: 18px; }
+  .kit-actions .btn { flex: 1 1 100%; }
+  /* Four chained filters on a 1080px bitmap, six times over, is the most
+     expensive thing on this page. Halve it where the GPU is weakest. */
+  .kit-shot--product .kit-shot__img {
+    filter: brightness(1.05) saturate(1.10)
+            drop-shadow(0 0 1px rgba(255, 227, 174, 0.90))
+            drop-shadow(0 18px 26px rgba(0, 0, 0, 0.70));
+  }
+  .kit-shot--product::before { filter: blur(26px); }
   .post-grid { grid-template-columns: repeat(2, 1fr); }
   .footer__grid { grid-template-columns: 1fr; }
   .ticket { flex-direction: column; text-align: center; }
   .hero__plate { padding-inline: 8px; }
-  .kit__foot { flex-direction: column; align-items: stretch; }
   /* Keep the kicker on one line and stop the emblem ghost overpowering the
      Thai slogan once the artwork is only a few hundred pixels wide. */
   .hero__kicker { font-size: 0.6rem; letter-spacing: 0.28em; text-indent: 0.28em; gap: 10px; }
@@ -2571,7 +2455,7 @@ em, .serif {
 
 @media (max-width: 400px) {
   /* Roster cards go full width — a 165px portrait plate is too small to read.
-     Stats stay two-up: four stacked numbers is a lot of scrolling for nothing. */
+     Stats stay two-up — there are only two of them. */
   .roster { grid-template-columns: 1fr; }
 }
 @media (max-width: 330px) {
@@ -2581,7 +2465,7 @@ em, .serif {
 }
 
 /* ---------------------------------------------------------
-   25 · Reduced motion — kill parallax, particles, long moves
+   24 · Reduced motion — kill parallax, particles, long moves
    --------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -2597,5 +2481,7 @@ em, .serif {
   .hero__emblem, .emblem-block img, .emblem-block__glow, .hero__halo { animation: none; }
   .ticker__track { animation: none; transform: none; }
   .card:hover { transform: none; }
+  .kit-shot--product::before { animation: none; transform: none; }
+  .kit-row:hover .kit-shot--product .kit-shot__img { transform: none; }
   .btn:active { scale: 1; }
 }

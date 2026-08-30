@@ -443,52 +443,6 @@
     });
   }
 
-  /* ---------- Contact form (client-side validation only) ---------- */
-  function initContactForm() {
-    var form = document.querySelector("[data-contact-form]");
-    if (!form) return;
-    var note = form.querySelector(".form-note");
-
-    function setError(name, msg) {
-      var box = form.querySelector('[data-error="' + name + '"]');
-      if (box) box.textContent = msg || "";
-      var input = form.elements[name];
-      if (input) input.setAttribute("aria-invalid", msg ? "true" : "false");
-    }
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var ok = true;
-      var name = form.elements["name"];
-      var email = form.elements["email"];
-      var message = form.elements["message"];
-
-      setError("name", ""); setError("email", ""); setError("message", "");
-
-      if (!name.value.trim()) { setError("name", "Enter your name."); ok = false; }
-      var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRe.test(email.value.trim())) { setError("email", "Enter a valid email address."); ok = false; }
-      if (message.value.trim().length < 10) { setError("message", "Write at least 10 characters."); ok = false; }
-
-      if (!ok) {
-        var firstBad = form.querySelector('[aria-invalid="true"]');
-        if (firstBad) firstBad.focus();
-        return;
-      }
-
-      // Static demo: no data leaves the browser. Wire to a form service later.
-      note.classList.add("is-visible");
-      note.textContent = "Thanks " + name.value.trim() + " — message received. We'll get back to you soon.";
-      form.reset();
-      if (note.focus) note.focus();
-    });
-
-    ["name", "email", "message"].forEach(function (n) {
-      var f = form.elements[n];
-      if (f) f.addEventListener("input", function () { setError(n, ""); });
-    });
-  }
-
   /* ---------- Order links ----------
      Every Buy button ships with the real href in markup so it survives JS being
      off. This re-stamps them from the constant above, so the form URL has
@@ -660,7 +614,6 @@
     initRimLight();
     initMagnetic();
     initFilters();
-    initContactForm();
     initOrderLinks();
     initSportNav();
   });

@@ -17,3 +17,7 @@ node_modules/
 # Pasted design briefs — working notes, not site content
 RESTYLE_PROMPT.md
 UPDATE_PROMPT.md
+
+# Kit photography masters — 12 MB of 1080px PNGs.
+# public/assets/kit/*.webp is derived from these by tools/build-kit-images.py.
+shirt-model/
